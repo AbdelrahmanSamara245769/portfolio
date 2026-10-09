@@ -6,6 +6,9 @@
     <title>Page not found | Abdelrahman Samara</title>
     <meta name="robots" content="noindex" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- The browser's toolbar colour on phones, as on the portfolio (see index.html). -->
+    <meta name="theme-color" content="#e5ece4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a130f" media="(prefers-color-scheme: dark)" />
     <!-- Vercel shows this page for any address that doesn't exist. It is plain HTML,
          so it works even when the site's scripts and fonts don't load. -->
     <script>
@@ -13,7 +16,13 @@
       // the colours below follow the device's light or dark setting.
       try {
         var theme = localStorage.getItem('theme')
-        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.dataset.theme = theme
+          var colour = theme === 'dark' ? '#0a130f' : '#e5ece4'
+          document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) {
+            meta.content = colour
+          })
+        }
       } catch (error) {}
     </script>
     <style>

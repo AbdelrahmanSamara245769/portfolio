@@ -3,7 +3,8 @@ import { flushSync } from 'react-dom'
 
 type Theme = 'light' | 'dark'
 
-// The browser toolbar colour on phones, matching --page in index.css.
+// The browser toolbar colour on phones, matching --page in index.css. index.html
+// has one line per device setting; a switch gives both the new theme's colour.
 const toolbarColour: Record<Theme, string> = { light: '#e5ece4', dark: '#0a130f' }
 
 // index.html has already picked a theme before React starts, so read it from the page.
@@ -22,7 +23,7 @@ function ThemeToggle() {
   function flipTheme() {
     const next: Theme = currentTheme() === 'dark' ? 'light' : 'dark'
     document.documentElement.dataset.theme = next
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', toolbarColour[next])
+    document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => meta.setAttribute('content', toolbarColour[next]))
     try {
       localStorage.setItem('theme', next)
     } catch {

@@ -404,7 +404,7 @@ export const projects: Project[] = [
     more: 'I reviewed the literature, ran the experiments and compared the two models with **statistical hypothesis tests**.',
     period: 'February to April 2026',
     skills: ['research design', 'hypothesis testing', 'image segmentation'],
-    keyResult: '**p = 0.29**: fewer junction errors, but not significant',
+    keyResult: 'Fewer junction errors, though not statistically significant (p = 0.29)',
     codeUrl: repo('root-shoot-junction-segmentation'),
     categories: ['ml', 'data'],
     visual: {

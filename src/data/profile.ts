@@ -37,7 +37,7 @@ export const profile: Profile = {
   github: 'https://github.com/AbdelrahmanSamara245769',
   linkedin: 'https://www.linkedin.com/in/abdelrahman-samara/',
   cvPath: '/Abdelrahman_Samara_CV.pdf',
-  cvFileSize: '53 KB',
+  cvFileSize: '54 KB',
   photoPath: '/profile.jpeg',
   photoSize: 1254,
 }

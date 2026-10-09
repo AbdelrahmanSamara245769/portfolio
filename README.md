@@ -9,7 +9,7 @@
 
 My one-page portfolio as an Applied Data Science and AI student. It shows what I build, from root detection and robot control to an NLP pipeline and MLOps on Azure, and makes it easy to email me.
 
-**Live site:** add the Vercel address here after the first deploy.
+**Live site:** [abdelrahman-samara.vercel.app](https://abdelrahman-samara.vercel.app)
 
 ## The idea
 
@@ -175,11 +175,11 @@ vercel.json                 asks search engines not to index the CV PDF
    ```
 2. On [vercel.com](https://vercel.com), choose **Add New → Project** and import the repository.
 3. Vercel detects Vite and fills in the settings (build command `npm run build`, output folder `dist`). Click **Deploy**.
-4. Once you know the site's address, open `index.html`, find the commented-out `og:image` lines, put in your address and remove the comment marks. Push again. Links shared on LinkedIn then show `public/og-image.png` as their preview.
+4. Once you know the site's address, put it in the `og:url` and `og:image` lines in `index.html` and push again. Links shared on LinkedIn then show `public/og-image.png` as their preview. This site's lines already name https://abdelrahman-samara.vercel.app.
 
 Every later push to `main` deploys the site again automatically. Any address that doesn't exist shows `public/404.html`, with a link back to the portfolio.
 
-`vercel.json` sends an `X-Robots-Tag: noindex` header with the CV PDF. Visitors can still download it, but search engines won't list it, so the phone number on the CV doesn't show up in search results.
+`vercel.json` sends an `X-Robots-Tag: noindex` header with the CV PDF. Visitors can still download it, but search engines won't list it. The CV on the site leaves out my phone number.
 
 ## Accessibility
 
