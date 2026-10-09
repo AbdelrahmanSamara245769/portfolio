@@ -1,0 +1,611 @@
+@import "tailwindcss";
+
+/*
+  Colour tokens. Tailwind turns each --color-* variable into class names, so
+  --color-ink becomes text-ink, bg-ink, border-ink and so on.
+
+  The colours are named for their job (page, ink, accent) rather than their
+  shade, because each theme fills them in differently: the light theme is agar
+  under lab light (a sage page with moss-green ink), the dark theme is a
+  scanner bed (a near-black green page with sage ink). Both keep safranin, the
+  red stain used on plant tissue, as the accent.
+
+  Accent colours appear only on buttons, active states, icons and links:
+  accent fills the Email buttons and the active filter, accent-line draws focus
+  outlines and icons, and accent-text colours a link you point at. Text needs
+  more contrast than a line, and on a dark ground a red light enough for text
+  turns pink, so on dark grounds accent-text is simply the ink colour.
+
+  page is the page itself, band the slightly different tone every other section
+  sits on, and surface the cards, which are always a little lighter than what
+  is behind them. "inline" makes each class use the variable directly.
+*/
+@theme inline {
+  --color-page: var(--page);
+  --color-band: var(--band);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-line: var(--accent-line);
+  --color-accent-text: var(--accent-text);
+  --color-accent-tint: var(--accent-tint);
+  --color-on-accent: var(--on-accent);
+  --color-bar-muted: var(--bar-muted);
+}
+
+/*
+  Typography. Two families: Source Serif 4, a serif with optical sizes (its
+  letters get finer as they get larger), for the name, section headings and
+  project titles; and Archivo for everything else, including the small bold
+  labels. Every piece of text has a role, and each role has a size token here,
+  so text-display gives the name's size, text-section a section heading's, and
+  so on.
+
+  The big steps grow by about 1.414 from the 18px body text (18, then 36 for a
+  project title and 51 for a section heading), and the sizes between them
+  (20, 22) are set apart by weight or typeface, so neighbouring roles never look
+  alike. clamp(phone, fluid, wide) sizes grow with the window between a phone
+  and a wide screen.
+*/
+@theme {
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Source Serif 4 Variable", ui-serif, Georgia, serif;
+
+  /* The name in the top section. */
+  --text-display: clamp(2.75rem, 0.8rem + 8vw, 6rem);
+  --text-display--line-height: 0.95;
+  /* Section headings, centred above each section. */
+  --text-section: clamp(2.25rem, 1.5rem + 2.4vw, 3.1875rem);
+  --text-section--line-height: 1.02;
+  /* A main project's title, the largest text in its row. */
+  --text-project: clamp(1.75rem, 1.4rem + 1.1vw, 2.25rem);
+  --text-project--line-height: 1.08;
+  /* A smaller project's title on its card. */
+  --text-card: 1.375rem;
+  --text-card--line-height: 1.18;
+  /* Larger text: intros under headings, the top section's statement, About, and key results in rows. */
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.5;
+  /* Body text (17px on phones, see body below). */
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.6;
+  /* Small bold labels: card names, the top section's tiles, About's facts. */
+  --text-title: 1.0625rem;
+  --text-title--line-height: 1.3;
+  /* Facts, tags and captions. */
+  --text-meta: 0.875rem;
+  --text-meta--line-height: 1.5;
+  /* The email address that closes the page. */
+  --text-email: clamp(1.5rem, 0.3rem + 6.4vw, 4rem);
+  --text-email--line-height: 1.1;
+
+  /*
+    The reading measure keeps body text to about 70 characters per line at
+    most, the limit the site's owner set. It becomes the class max-w-measure.
+  */
+  --container-measure: 33rem;
+
+  /* One corner radius for every card, panel and tooltip, so they all match. */
+  --radius-card: 1.25rem;
+
+  /* A fast start that settles gently, used by most animations on the page. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  /* The light theme, agar under lab light. It is the default. */
+  :root {
+    --page: #e5ece4; /* sage */
+    --band: #dde5dd;
+    --surface: #f2f6f1;
+    --ink: #1e3a2f; /* moss */
+    --ink-soft: #4d5c55; /* lichen */
+    --accent: #b0234f; /* safranin */
+    --accent-hover: #8e1b40;
+    --accent-line: #b0234f;
+    --accent-text: #b0234f;
+    --accent-tint: rgb(176 35 79 / 0.1);
+    --on-accent: #ffffff;
+    --bar-muted: #6b7d71; /* fern */
+    /*
+      Light pooling on the agar, so the page is never one flat colour: two
+      bright pools and one shadowed one. The layer they sit on starts a quarter
+      of a window above the top (see body::before), so these positions are
+      chosen to fall inside the window.
+    */
+    --reflection:
+      radial-gradient(55% 32% at 14% 24%, rgb(255 255 255 / 0.65), transparent 72%),
+      radial-gradient(45% 30% at 90% 52%, rgb(255 255 255 / 0.5), transparent 72%),
+      radial-gradient(60% 30% at 30% 86%, rgb(30 58 47 / 0.07), transparent 72%);
+
+    color-scheme: light;
+  }
+
+  /*
+    The dark theme, a scanner bed: near-black green with lighter green
+    reflections, and a fine grain so the gradients never show bands.
+  */
+  [data-theme="dark"] {
+    --page: #0a130f;
+    --band: #111b16;
+    --surface: #18271f;
+    --ink: #e5ece4; /* sage */
+    --ink-soft: #b6c4ba;
+    --accent: #c4345f;
+    /* Darker on hover, so the white text keeps at least 4.5:1 contrast. */
+    --accent-hover: #a92a52;
+    --accent-line: #de5279;
+    --accent-text: #e5ece4;
+    --accent-tint: rgb(222 82 121 / 0.14);
+    --on-accent: #ffffff;
+    --bar-muted: #6f8a7b;
+    --reflection:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(55% 32% at 14% 24%, rgb(120 170 140 / 0.22), transparent 72%),
+      radial-gradient(45% 30% at 90% 52%, rgb(96 150 118 / 0.18), transparent 72%),
+      radial-gradient(60% 30% at 24% 88%, rgb(80 135 104 / 0.16), transparent 72%),
+      linear-gradient(118deg, transparent 38%, rgb(229 236 228 / 0.04) 48%, transparent 58%);
+    color-scheme: dark;
+  }
+
+  html {
+    background-color: var(--page);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    scrollbar-color: var(--ink-soft) var(--page);
+    /*
+      The floating navigation covers the top 76px of the window. This keeps
+      anything the browser scrolls to, a section from a nav link or a control
+      that gets keyboard focus, clear of it.
+    */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (width >= 48rem) {
+    body {
+      font-size: var(--text-body);
+    }
+  }
+
+  /*
+    The reflections sit on their own layer behind everything, fixed to the
+    window. The layer is taller than the window, so it can drift as you scroll
+    (see the motion rules at the end of this file).
+  */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -25vh 0;
+    z-index: -1;
+    background: var(--reflection);
+    pointer-events: none;
+  }
+
+  /* Headings break into lines of similar length, so none ends on a lone word. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  /* Body text and captions avoid a single short word on their last line. */
+  p,
+  li,
+  dd,
+  figcaption {
+    text-wrap: pretty;
+  }
+
+  /* Every link and button shares this focus style, which shows on all backgrounds. */
+  :focus-visible {
+    outline: 3px solid var(--accent-line);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /*
+    The three type roles that aren't plain text: the name, headings and
+    project titles in the serif, and small bold labels in Archivo. Large serif
+    text is set a little tighter, as large type looks loosely spaced otherwise.
+  */
+  .role-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .role-heading {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .role-title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+  }
+
+  /*
+    A project's key result, under its title: a short line set off by a soft
+    highlight in the ink colour, which wraps line by line (box-decoration-break)
+    like a highlighter pen. Its number, marked **bold** in projects.ts, is the
+    heaviest text in it (see the utilities layer below, which beats the bold class).
+  */
+  .key-result {
+    font-weight: 600;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .key-result-mark {
+    padding: 0.12em 0.4em;
+    border-radius: 0.375rem;
+    background-color: color-mix(in oklab, var(--ink) 8%, transparent);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  /*
+    A card: a little lighter than whatever it sits on, with the shared corner
+    radius and a faint edge, so cards read as cards on the page and on a band.
+  */
+  .card {
+    border-radius: var(--radius-card);
+    background-color: var(--surface);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--ink) 9%, transparent);
+  }
+
+  /* The Copy button's tick. pathLength="1" in icons.tsx makes one dash exactly its length. */
+  .draw-tick {
+    stroke-dasharray: 1;
+  }
+
+  /* The scan line that passes over the photo. It is invisible unless animated. */
+  .photo-scan {
+    opacity: 0;
+    border-bottom: 2px solid var(--ink-soft);
+    background: linear-gradient(to bottom, transparent 70%, color-mix(in oklab, var(--ink) 14%, transparent));
+  }
+}
+
+@layer utilities {
+  .key-result strong {
+    font-weight: 800;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion
+
+   The page has one main moment: when it opens, the photo is scanned in from
+   top to bottom and the name inks in. After that, lines trace in the
+   direction data flows: charts grow from their baseline and diagrams draw from
+   step to step the first time they scroll into view (a component marks them
+   with data-reveal), the robot inoculates the root tips of the three test
+   dishes one by one, a sample travels through the platform's pipeline, and the
+   skill tags slide into their cards.
+
+   Everything here runs only on screens, and only when the visitor hasn't asked
+   for less motion, so printing or reduced motion always shows the finished page.
+   --------------------------------------------------------------------------- */
+
+/*
+  Two inset() shapes can blend into each other, so the photo is uncovered
+  smoothly; a shape and "none" cannot, which is why the end shape is written out.
+*/
+@keyframes scan-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    translate: 0 -100%;
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    translate: 0 0;
+    opacity: 0;
+  }
+}
+
+/* The serif has a weight axis, so the name can thicken smoothly like spreading ink. */
+@keyframes ink-in {
+  from {
+    font-weight: 200;
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Projects that come into view after a filter change rise in gently. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
+}
+
+@keyframes node-pop {
+  from {
+    opacity: 0;
+    scale: 0.3;
+  }
+}
+
+@keyframes grow-down {
+  from {
+    scale: 1 0;
+  }
+}
+
+@keyframes drift {
+  to {
+    translate: 0 -20vh;
+  }
+}
+
+@keyframes draw-tick {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  /*
+    The opening moment. The scan runs at a steady pace, like a real scanner,
+    and the photo stays hidden until it has loaded, so it never flashes in first.
+  */
+  .photo:not(.photo-loaded) {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .photo-loaded {
+    animation: scan-reveal 1.5s cubic-bezier(0.45, 0, 0.2, 1) backwards;
+  }
+
+  .photo-loaded + .photo-scan {
+    animation: scan-line 1.5s cubic-bezier(0.45, 0, 0.2, 1);
+  }
+
+  .hero-name > span {
+    animation: ink-in 1.3s var(--ease-out-expo) 0.1s backwards;
+  }
+
+  .hero-name > span + span {
+    animation-delay: 0.2s;
+  }
+
+  /* The text and the email button arrive almost at once, so the main action is never waited for. */
+  .hero-fade {
+    animation: fade-in 0.5s var(--ease-out-expo) 0.1s backwards;
+  }
+
+  /* After a filter change, the projects shown rise in one after another (--i). */
+  .filter-in {
+    animation: rise-in 0.5s var(--ease-out-expo) calc(var(--i, 0) * 0.06s) backwards;
+  }
+
+  /* After a copy, the tick draws itself from one end to the other. */
+  .draw-tick {
+    animation: draw-tick 0.45s var(--ease-out-expo) 0.05s backwards;
+  }
+
+  /*
+    Charts and diagrams. Each animated part reads its position in the sequence
+    from --i (set in the component), so later parts start a little later.
+  */
+  [data-reveal="waiting"] .reveal-bar {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  [data-reveal="shown"] .reveal-bar {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 1s var(--ease-out-expo) calc(var(--i, 0) * 0.18s + 0.1s);
+  }
+
+  [data-reveal="waiting"] .reveal-fade {
+    opacity: 0;
+  }
+
+  [data-reveal="shown"] .reveal-fade {
+    transition: opacity 0.5s ease-out calc(var(--i, 0) * 0.18s + 0.5s);
+  }
+
+  [data-reveal="waiting"] .reveal-node {
+    opacity: 0;
+    scale: 0.3;
+  }
+
+  [data-reveal="shown"] .reveal-node {
+    transition:
+      opacity 0.25s ease-out,
+      scale 0.5s var(--ease-out-expo);
+    transition-delay: calc(var(--i, 0) * 0.14s);
+  }
+
+  /* Lines run down in a narrow space and across in a wide one, so they grow that way. */
+  .reveal-line {
+    transform-origin: top;
+  }
+
+  [data-reveal="waiting"] .reveal-line {
+    scale: 1 0;
+  }
+
+  [data-reveal="shown"] .reveal-line {
+    transition: scale 0.4s var(--ease-out-expo) calc(var(--i, 0) * 0.14s + 0.07s);
+  }
+
+  @container (width >= 36rem) {
+    .reveal-line-across {
+      transform-origin: left;
+    }
+
+    [data-reveal="waiting"] .reveal-line-across {
+      scale: 0 1;
+    }
+  }
+
+  .reveal-branch {
+    transform-origin: left;
+  }
+
+  [data-reveal="waiting"] .reveal-branch {
+    scale: 0 1;
+  }
+
+  [data-reveal="shown"] .reveal-branch {
+    transition: scale 0.35s var(--ease-out-expo) calc(var(--i, 0) * 0.14s + 0.1s);
+  }
+
+  /*
+    The test dishes: each dish's roots grow down together (--d is the dish),
+    then the robot inoculates the tips one after another (--i is the tip's turn).
+  */
+  .dish-root {
+    transform-origin: top;
+  }
+
+  [data-reveal="waiting"] .dish-root {
+    scale: 1 0;
+  }
+
+  [data-reveal="shown"] .dish-root {
+    transition: scale 0.7s var(--ease-out-expo) calc(var(--d, 0) * 0.12s);
+  }
+
+  [data-reveal="waiting"] .dish-hit {
+    opacity: 0;
+    scale: 0.2;
+  }
+
+  [data-reveal="shown"] .dish-hit {
+    transition:
+      opacity 0.2s ease-out,
+      scale 0.45s var(--ease-out-expo);
+    transition-delay: calc(0.75s + var(--i, 0) * 0.11s);
+  }
+
+  /* Skill tags slide into their card one after another: --i is the card, --c the tag. */
+  [data-reveal="waiting"] .reveal-chip {
+    opacity: 0;
+    translate: -0.5rem 0;
+  }
+
+  [data-reveal="shown"] .reveal-chip {
+    transition:
+      opacity 0.4s ease-out,
+      translate 0.6s var(--ease-out-expo);
+    transition-delay: calc(var(--i, 0) * 0.12s + 0.15s + var(--c, 0) * 0.04s);
+  }
+
+  /* The How it works steps trace down each time a Read more panel opens. */
+  [data-open="true"] .step-node {
+    animation: node-pop 0.45s var(--ease-out-expo) calc(var(--i, 0) * 0.1s + 0.15s) backwards;
+  }
+
+  [data-open="true"] .step-line {
+    transform-origin: top;
+    animation: grow-down 0.4s var(--ease-out-expo) calc(var(--i, 0) * 0.1s + 0.2s) backwards;
+  }
+}
+
+/*
+  Two effects follow the scroll position itself, in browsers that support it:
+  the reflections drift slowly, as light on glass moves when you move, and the
+  line joining the two NPEC projects grows as you read from one to the other.
+  Other browsers show both standing still.
+*/
+@supports (animation-timeline: scroll()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    body::before {
+      animation: drift linear both;
+      animation-timeline: scroll(root);
+    }
+
+    .story-line {
+      transform-origin: top;
+      animation: grow-down linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 55%;
+    }
+  }
+}
+
+/*
+  Switching theme uses a view transition: the browser takes a picture of the
+  page, and the new theme spreads over it in a circle from the switch (see
+  ThemeToggle.tsx). These lines turn off the browser's default cross-fade.
+*/
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/*
+  Printing: always the light colours on white paper, and no reflections. Read
+  more panels print open (see ReadMore.tsx). This block is outside the layers
+  above, so it wins over both themes.
+*/
+@media print {
+  :root,
+  [data-theme="dark"] {
+    --page: #ffffff;
+    --band: #ffffff;
+    --surface: #ffffff;
+    --ink: #1e3a2f;
+    --ink-soft: #4d5c55;
+    --accent: #b0234f;
+    --accent-hover: #8e1b40;
+    --accent-line: #b0234f;
+    --accent-text: #b0234f;
+    --accent-tint: rgb(176 35 79 / 0.1);
+    --bar-muted: #75877b;
+    --reflection: none;
+    color-scheme: light;
+  }
+
+  body::before {
+    display: none;
+  }
+}

@@ -1,0 +1,588 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-09T21:10:54.765Z",
+  "title": "Design System: Abdelrahman Samara portfolio",
+  "extensions": {
+    "colorMeta": {
+      "sage-agar": {
+        "role": "neutral",
+        "displayName": "Sage Agar (light page)",
+        "canonical": "oklch(93.6% 0.013 141.8)",
+        "tonalRamp": [
+          "oklch(15% 0.013 141.8)",
+          "oklch(25% 0.013 141.8)",
+          "oklch(35% 0.013 141.8)",
+          "oklch(45% 0.013 141.8)",
+          "oklch(55% 0.013 141.8)",
+          "oklch(65% 0.013 141.8)",
+          "oklch(80% 0.013 141.8)",
+          "oklch(95% 0.013 141.8)"
+        ]
+      },
+      "agar-band": {
+        "role": "neutral",
+        "displayName": "Agar Band (light alternate section)",
+        "canonical": "oklch(91.4% 0.014 145.5)",
+        "tonalRamp": [
+          "oklch(15% 0.014 145.5)",
+          "oklch(25% 0.014 145.5)",
+          "oklch(35% 0.014 145.5)",
+          "oklch(45% 0.014 145.5)",
+          "oklch(55% 0.014 145.5)",
+          "oklch(65% 0.014 145.5)",
+          "oklch(80% 0.014 145.5)",
+          "oklch(95% 0.014 145.5)"
+        ]
+      },
+      "agar-surface": {
+        "role": "neutral",
+        "displayName": "Agar Surface (light cards)",
+        "canonical": "oklch(96.9% 0.008 139.4)",
+        "tonalRamp": [
+          "oklch(15% 0.008 139.4)",
+          "oklch(25% 0.008 139.4)",
+          "oklch(35% 0.008 139.4)",
+          "oklch(45% 0.008 139.4)",
+          "oklch(55% 0.008 139.4)",
+          "oklch(65% 0.008 139.4)",
+          "oklch(80% 0.008 139.4)",
+          "oklch(95% 0.008 139.4)"
+        ]
+      },
+      "moss-ink": {
+        "role": "neutral",
+        "displayName": "Moss Ink",
+        "canonical": "oklch(32.2% 0.040 166.7)",
+        "tonalRamp": [
+          "oklch(15% 0.04 166.7)",
+          "oklch(25% 0.04 166.7)",
+          "oklch(35% 0.04 166.7)",
+          "oklch(45% 0.04 166.7)",
+          "oklch(55% 0.04 166.7)",
+          "oklch(65% 0.04 166.7)",
+          "oklch(80% 0.04 166.7)",
+          "oklch(95% 0.04 166.7)"
+        ]
+      },
+      "lichen-ink": {
+        "role": "neutral",
+        "displayName": "Lichen Ink (soft text)",
+        "canonical": "oklch(46% 0.022 165.6)",
+        "tonalRamp": [
+          "oklch(15% 0.022 165.6)",
+          "oklch(25% 0.022 165.6)",
+          "oklch(35% 0.022 165.6)",
+          "oklch(45% 0.022 165.6)",
+          "oklch(55% 0.022 165.6)",
+          "oklch(65% 0.022 165.6)",
+          "oklch(80% 0.022 165.6)",
+          "oklch(95% 0.022 165.6)"
+        ]
+      },
+      "safranin": {
+        "role": "primary",
+        "displayName": "Safranin",
+        "canonical": "oklch(50.2% 0.177 8.7)",
+        "tonalRamp": [
+          "oklch(15% 0.177 8.7)",
+          "oklch(25% 0.177 8.7)",
+          "oklch(35% 0.177 8.7)",
+          "oklch(45% 0.177 8.7)",
+          "oklch(55% 0.177 8.7)",
+          "oklch(65% 0.177 8.7)",
+          "oklch(80% 0.177 8.7)",
+          "oklch(95% 0.177 8.7)"
+        ]
+      },
+      "safranin-deep": {
+        "role": "primary",
+        "displayName": "Deep Safranin (hover)",
+        "canonical": "oklch(43% 0.151 7.8)",
+        "tonalRamp": [
+          "oklch(15% 0.151 7.8)",
+          "oklch(25% 0.151 7.8)",
+          "oklch(35% 0.151 7.8)",
+          "oklch(45% 0.151 7.8)",
+          "oklch(55% 0.151 7.8)",
+          "oklch(65% 0.151 7.8)",
+          "oklch(80% 0.151 7.8)",
+          "oklch(95% 0.151 7.8)"
+        ]
+      },
+      "safranin-tint": {
+        "role": "primary",
+        "displayName": "Safranin Tint",
+        "canonical": "rgb(176 35 79 / 0.1)",
+        "purpose": "Behind icons and the active nav link, light theme."
+      },
+      "fern-muted": {
+        "role": "neutral",
+        "displayName": "Fern (muted bar)",
+        "canonical": "oklch(57.1% 0.028 156.2)",
+        "tonalRamp": [
+          "oklch(15% 0.028 156.2)",
+          "oklch(25% 0.028 156.2)",
+          "oklch(35% 0.028 156.2)",
+          "oklch(45% 0.028 156.2)",
+          "oklch(55% 0.028 156.2)",
+          "oklch(65% 0.028 156.2)",
+          "oklch(80% 0.028 156.2)",
+          "oklch(95% 0.028 156.2)"
+        ]
+      },
+      "on-safranin": {
+        "role": "neutral",
+        "displayName": "White on Safranin",
+        "canonical": "#ffffff"
+      },
+      "scanner-bed": {
+        "role": "neutral",
+        "displayName": "Scanner Bed (dark page)",
+        "canonical": "oklch(17.6% 0.016 165.3)",
+        "tonalRamp": [
+          "oklch(15% 0.016 165.3)",
+          "oklch(25% 0.016 165.3)",
+          "oklch(35% 0.016 165.3)",
+          "oklch(45% 0.016 165.3)",
+          "oklch(55% 0.016 165.3)",
+          "oklch(65% 0.016 165.3)",
+          "oklch(80% 0.016 165.3)",
+          "oklch(95% 0.016 165.3)"
+        ]
+      },
+      "scanner-band": {
+        "role": "neutral",
+        "displayName": "Scanner Band (dark alternate section)",
+        "canonical": "oklch(21% 0.018 162.7)",
+        "tonalRamp": [
+          "oklch(15% 0.018 162.7)",
+          "oklch(25% 0.018 162.7)",
+          "oklch(35% 0.018 162.7)",
+          "oklch(45% 0.018 162.7)",
+          "oklch(55% 0.018 162.7)",
+          "oklch(65% 0.018 162.7)",
+          "oklch(80% 0.018 162.7)",
+          "oklch(95% 0.018 162.7)"
+        ]
+      },
+      "scanner-surface": {
+        "role": "neutral",
+        "displayName": "Scanner Surface (dark cards)",
+        "canonical": "oklch(25.6% 0.025 160.6)",
+        "tonalRamp": [
+          "oklch(15% 0.025 160.6)",
+          "oklch(25% 0.025 160.6)",
+          "oklch(35% 0.025 160.6)",
+          "oklch(45% 0.025 160.6)",
+          "oklch(55% 0.025 160.6)",
+          "oklch(65% 0.025 160.6)",
+          "oklch(80% 0.025 160.6)",
+          "oklch(95% 0.025 160.6)"
+        ]
+      },
+      "dark-ink-soft": {
+        "role": "neutral",
+        "displayName": "Pale Lichen (dark soft text)",
+        "canonical": "oklch(80.7% 0.021 154.8)",
+        "tonalRamp": [
+          "oklch(15% 0.021 154.8)",
+          "oklch(25% 0.021 154.8)",
+          "oklch(35% 0.021 154.8)",
+          "oklch(45% 0.021 154.8)",
+          "oklch(55% 0.021 154.8)",
+          "oklch(65% 0.021 154.8)",
+          "oklch(80% 0.021 154.8)",
+          "oklch(95% 0.021 154.8)"
+        ]
+      },
+      "dark-safranin": {
+        "role": "primary",
+        "displayName": "Lit Safranin (dark fill)",
+        "canonical": "oklch(55.5% 0.181 7.8)",
+        "tonalRamp": [
+          "oklch(15% 0.181 7.8)",
+          "oklch(25% 0.181 7.8)",
+          "oklch(35% 0.181 7.8)",
+          "oklch(45% 0.181 7.8)",
+          "oklch(55% 0.181 7.8)",
+          "oklch(65% 0.181 7.8)",
+          "oklch(80% 0.181 7.8)",
+          "oklch(95% 0.181 7.8)"
+        ]
+      },
+      "dark-safranin-hover": {
+        "role": "primary",
+        "displayName": "Lit Safranin hover",
+        "canonical": "oklch(49.6% 0.164 6.9)",
+        "tonalRamp": [
+          "oklch(15% 0.164 6.9)",
+          "oklch(25% 0.164 6.9)",
+          "oklch(35% 0.164 6.9)",
+          "oklch(45% 0.164 6.9)",
+          "oklch(55% 0.164 6.9)",
+          "oklch(65% 0.164 6.9)",
+          "oklch(80% 0.164 6.9)",
+          "oklch(95% 0.164 6.9)"
+        ]
+      },
+      "dark-safranin-line": {
+        "role": "primary",
+        "displayName": "Safranin Line (dark)",
+        "canonical": "oklch(63.5% 0.177 6.6)",
+        "tonalRamp": [
+          "oklch(15% 0.177 6.6)",
+          "oklch(25% 0.177 6.6)",
+          "oklch(35% 0.177 6.6)",
+          "oklch(45% 0.177 6.6)",
+          "oklch(55% 0.177 6.6)",
+          "oklch(65% 0.177 6.6)",
+          "oklch(80% 0.177 6.6)",
+          "oklch(95% 0.177 6.6)"
+        ]
+      },
+      "dark-safranin-tint": {
+        "role": "primary",
+        "displayName": "Safranin Tint (dark)",
+        "canonical": "rgb(222 82 121 / 0.14)",
+        "purpose": "Behind icons and the active nav link, dark theme."
+      },
+      "dark-fern-muted": {
+        "role": "neutral",
+        "displayName": "Fern (muted bar, dark)",
+        "canonical": "oklch(60.8% 0.038 160.7)",
+        "tonalRamp": [
+          "oklch(15% 0.038 160.7)",
+          "oklch(25% 0.038 160.7)",
+          "oklch(35% 0.038 160.7)",
+          "oklch(45% 0.038 160.7)",
+          "oklch(55% 0.038 160.7)",
+          "oklch(65% 0.038 160.7)",
+          "oklch(80% 0.038 160.7)",
+          "oklch(95% 0.038 160.7)"
+        ]
+      },
+      "dark-reflection-pool-high": {
+        "role": "neutral",
+        "displayName": "Dark reflection pool, upper left",
+        "canonical": "rgb(120 170 140 / 0.22)",
+        "purpose": "Dark page --reflection, radial pool at 14% 24%."
+      },
+      "dark-reflection-pool-right": {
+        "role": "neutral",
+        "displayName": "Dark reflection pool, right",
+        "canonical": "rgb(96 150 118 / 0.18)",
+        "purpose": "Dark page --reflection, radial pool at 90% 52%."
+      },
+      "dark-reflection-pool-low": {
+        "role": "neutral",
+        "displayName": "Dark reflection pool, lower left",
+        "canonical": "rgb(80 135 104 / 0.16)",
+        "purpose": "Dark page --reflection, radial pool at 24% 88%."
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name only, two lines, inks in on the weight axis."
+      },
+      "email": {
+        "displayName": "Email",
+        "purpose": "The address that closes the page, centred in Contact."
+      },
+      "section": {
+        "displayName": "Section heading",
+        "purpose": "The centred heading that opens each section."
+      },
+      "project": {
+        "displayName": "Project title",
+        "purpose": "A main project's title, the largest text in its row."
+      },
+      "card": {
+        "displayName": "Card title",
+        "purpose": "A smaller project's title, the largest text on its card."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Section intros, the hero statement, the About paragraph."
+      },
+      "key-result": {
+        "displayName": "Key result",
+        "purpose": "One highlighted line under a project title; its bold number at weight 800. Body size on cards."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Summaries and Read more text in soft ink, max 33rem, from 48rem up."
+      },
+      "body-phone": {
+        "displayName": "Body (phones)",
+        "purpose": "Body text below 48rem."
+      },
+      "title": {
+        "displayName": "Label title",
+        "purpose": "Small bold labels: hero tiles, skill group names, fact values."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Facts, tags, captions, nav links, filter buttons, Read more."
+      }
+    },
+    "shadows": [
+      {
+        "name": "float",
+        "value": "0 10px 30px -14px rgb(10 19 15 / 0.45)",
+        "purpose": "The nav pill and its phone menu."
+      },
+      {
+        "name": "bubble",
+        "value": "0 8px 24px -8px rgb(10 19 15 / 0.45)",
+        "purpose": "The glossary explanation bubble."
+      },
+      {
+        "name": "photo-lift",
+        "value": "0 28px 60px -30px rgb(10 19 15 / 0.55)",
+        "purpose": "The profile photo, with a 1px ink ring at 15%."
+      },
+      {
+        "name": "card-edge",
+        "value": "inset 0 0 0 1px color-mix(in oklab, var(--ink) 9%, transparent)",
+        "purpose": "Every .card."
+      },
+      {
+        "name": "focus-outline",
+        "value": "outline: 3px solid var(--accent-line); outline-offset: 3px",
+        "purpose": "Every link and button."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default easing for reveals, traces, the panel unfold and the theme circle."
+      },
+      {
+        "name": "ease-scan",
+        "value": "cubic-bezier(0.45, 0, 0.2, 1)",
+        "purpose": "Steady pace for the photo scan."
+      },
+      {
+        "name": "hover-colour",
+        "value": "200ms",
+        "purpose": "Hover transitions, colours only."
+      },
+      {
+        "name": "photo-scan",
+        "value": "1.5s",
+        "purpose": "Opening: the photo is uncovered top to bottom behind a scan line."
+      },
+      {
+        "name": "ink-in",
+        "value": "1.3s, from weight 200",
+        "purpose": "Opening: the name thickens on the serif's weight axis to 600."
+      },
+      {
+        "name": "hero-fade",
+        "value": "0.5s at 0.1s",
+        "purpose": "Opening: hero text, Email button and tiles."
+      },
+      {
+        "name": "filter-in",
+        "value": "0.5s, 0.06s per item (--i)",
+        "purpose": "Projects rise in after a filter change."
+      },
+      {
+        "name": "reveal-stagger",
+        "value": "0.14s to 0.18s per step (--i)",
+        "purpose": "Charts, diagrams, dishes and skill tags, once, on scroll into view."
+      },
+      {
+        "name": "panel-unfold",
+        "value": "500ms grid-template-rows 0fr to 1fr",
+        "purpose": "Read more panels."
+      },
+      {
+        "name": "theme-circle",
+        "value": "650ms clip-path circle from the switch",
+        "purpose": "Theme change via View Transitions."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media screen and (prefers-reduced-motion: no-preference)",
+        "purpose": "Every animation sits inside this; print and reduced motion show the finished page."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "40rem"
+      },
+      {
+        "name": "md",
+        "value": "48rem"
+      },
+      {
+        "name": "lg",
+        "value": "64rem"
+      },
+      {
+        "name": "figure-across",
+        "value": "36rem (container)"
+      },
+      {
+        "name": "min-width",
+        "value": "320px"
+      }
+    ],
+    "themes": {
+      "switch": "data-theme on <html>, set before first paint in index.html: ?theme=light or ?theme=dark wins, then a choice saved in localStorage, then the device's prefers-color-scheme.",
+      "status": "Both themes ship; the device setting decides by default."
+    }
+  },
+  "components": [
+    {
+      "name": "Email Button",
+      "kind": "button",
+      "refersTo": "button-email",
+      "description": "The main action, a red pill; also \"Email me\" in the nav.",
+      "html": "<a class=\"ds-btn-email\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"20\" height=\"20\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"m3.5 7 8.5 6 8.5-6\"/></svg><span>name@example.com</span></a>",
+      "css": ".ds-btn-email{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 24px;border-radius:9999px;background:var(--accent,#b0234f);color:var(--on-accent,#fff);font-family:'Archivo Variable', ui-sans-serif, system-ui, sans-serif;font-weight:600;text-decoration:none;transition:background-color .2s}.ds-btn-email:hover{background:var(--accent-hover,#8e1b40)}.ds-btn-email:focus-visible{outline:3px solid var(--accent-line,#b0234f);outline-offset:3px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary controls: Copy, Download CV, Read more.",
+      "html": "<button type=\"button\" class=\"ds-btn-outline\">Read more <svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" aria-hidden=\"true\"><path d=\"M2 4.5 6 8.5 10 4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></button>",
+      "css": ".ds-btn-outline{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border:2px solid var(--ink,#1e3a2f);border-radius:9999px;background:transparent;color:var(--ink,#1e3a2f);font-family:'Archivo Variable', ui-sans-serif, system-ui, sans-serif;font-weight:600;font-size:.875rem;cursor:pointer;transition:color .2s,background-color .2s}.ds-btn-outline:hover{background:var(--ink,#1e3a2f);color:var(--page,#e5ece4)}.ds-btn-outline:focus-visible{outline:3px solid var(--accent-line,#b0234f);outline-offset:3px}"
+    },
+    {
+      "name": "Filter Buttons",
+      "kind": "button",
+      "refersTo": "filter-button",
+      "description": "Project filters: card pills, the chosen one filled red.",
+      "html": "<div class=\"ds-filters\" role=\"group\"><button aria-pressed=\"true\">All</button><button aria-pressed=\"false\">ML engineering</button><button aria-pressed=\"false\">Data</button><button aria-pressed=\"false\">Software</button></div>",
+      "css": ".ds-filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.ds-filters button{min-height:44px;padding:0 20px;border-radius:9999px;border:0;font:600 .875rem/1.5 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;background:var(--surface,#f2f6f1);color:var(--ink,#1e3a2f);box-shadow:inset 0 0 0 1px rgb(30 58 47/.09);cursor:pointer;transition:color .2s,background-color .2s}.ds-filters button:hover{color:var(--accent-text,#b0234f)}.ds-filters button[aria-pressed=true]{background:var(--accent,#b0234f);color:var(--on-accent,#fff);box-shadow:none}"
+    },
+    {
+      "name": "Text Link",
+      "kind": "custom",
+      "refersTo": "text-link",
+      "description": "GitHub, LinkedIn, the CV in Contact, View code.",
+      "html": "<a class=\"ds-link\" href=\"#\">GitHub</a>",
+      "css": ".ds-link{display:inline-flex;align-items:center;min-height:44px;font-family:'Archivo Variable', ui-sans-serif, system-ui, sans-serif;font-weight:600;color:var(--ink,#1e3a2f);text-decoration:underline;text-decoration-color:color-mix(in oklab,var(--ink,#1e3a2f) 40%,transparent);text-underline-offset:4px;transition:color .2s,text-decoration-color .2s}.ds-link:hover{color:var(--accent-text,#b0234f);text-decoration-color:var(--accent-line,#b0234f)}.ds-link:focus-visible{outline:3px solid var(--accent-line,#b0234f);outline-offset:3px}"
+    },
+    {
+      "name": "Navigation Pill",
+      "kind": "nav",
+      "refersTo": "nav-link-active",
+      "description": "Floating sticky pill: name, section links, theme switch, Email me.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-name\" href=\"#\">Abdelrahman Samara</a><a href=\"#\">About</a><a href=\"#\" aria-current=\"true\">Projects</a><a href=\"#\">Skills</a><a href=\"#\">Contact</a><a class=\"ds-nav-email\" href=\"#\">Email me</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:4px;max-width:56rem;padding:6px 6px 6px 16px;border-radius:9999px;background:color-mix(in oklab,var(--surface,#f2f6f1) 90%,transparent);backdrop-filter:blur(12px);box-shadow:0 10px 30px -14px rgb(10 19 15/.45),0 0 0 1px rgb(30 58 47/.1);font-family:'Archivo Variable', ui-sans-serif, system-ui, sans-serif}.ds-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:9999px;font-size:.875rem;font-weight:600;color:var(--ink,#1e3a2f);text-decoration:none;transition:color .2s,background-color .2s}.ds-nav a:hover{color:var(--accent-text,#b0234f)}.ds-nav a[aria-current]{background:var(--accent-tint,rgb(176 35 79/.1));color:var(--accent-text,#b0234f)}.ds-nav .ds-nav-name{margin-right:auto;padding:0;font-size:1rem;font-weight:700}.ds-nav .ds-nav-email{background:var(--accent,#b0234f);color:var(--on-accent,#fff);padding:0 20px}.ds-nav .ds-nav-email:hover{background:var(--accent-hover,#8e1b40);color:var(--on-accent,#fff)}"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A smaller project: visual, serif title, highlighted key result, one sentence, tags.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-visual\"></div><div class=\"ds-card-body\"><h4>Project title</h4><p class=\"ds-kr\"><span>Accuracy rose to <strong>91%</strong> on held-out data</span></p><p class=\"ds-sum\">One sentence on what it does, with a <strong>key word</strong> in full ink.</p><ul class=\"ds-tags\"><li>Data</li><li>Software</li></ul></div></article>",
+      "css": ".ds-card{max-width:24rem;padding:24px;border-radius:20px;background:var(--surface,#f2f6f1);box-shadow:inset 0 0 0 1px rgb(30 58 47/.09);color:var(--ink,#1e3a2f);font-family:'Archivo Variable', ui-sans-serif, system-ui, sans-serif}.ds-card-visual{height:120px;border-radius:20px;background:var(--page,#e5ece4)}.ds-card-body{margin-top:24px;padding-top:24px;border-top:1px solid rgb(30 58 47/.1)}.ds-card h4{margin:0;font:600 1.375rem/1.18 'Source Serif 4 Variable', ui-serif, Georgia, serif;letter-spacing:-.01em}.ds-kr{margin:12px 0 0;font-size:1.125rem;font-weight:600;line-height:1.65}.ds-kr span{padding:.12em .4em;border-radius:6px;background:color-mix(in oklab,var(--ink,#1e3a2f) 8%,transparent);box-decoration-break:clone;-webkit-box-decoration-break:clone}.ds-kr strong{font-weight:800}.ds-sum{margin:12px 0 0;font-size:1rem;line-height:1.6;color:var(--ink-soft,#4d5c55)}.ds-sum strong{color:var(--ink,#1e3a2f)}.ds-tags{display:flex;gap:6px;list-style:none;margin:12px 0 0;padding:0}.ds-tags li{padding:2px 10px;border-radius:9999px;background:rgb(30 58 47/.06);font-size:.875rem;font-weight:500}"
+    },
+    {
+      "name": "Icon Tile",
+      "kind": "custom",
+      "refersTo": "icon-tile",
+      "description": "An icon in a tinted square on a card; hero tiles and skill cards.",
+      "html": "<div class=\"ds-tile\"><span class=\"ds-tile-icon\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" aria-hidden=\"true\"><path d=\"M4 7h16M4 12h10M4 17h6\"/></svg></span><span>Automated pipelines</span></div>",
+      "css": ".ds-tile{display:flex;align-items:center;gap:16px;padding:16px;border-radius:20px;background:var(--surface,#f2f6f1);box-shadow:inset 0 0 0 1px rgb(30 58 47/.09);font:700 1.0625rem/1.3 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;color:var(--ink,#1e3a2f)}.ds-tile-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--accent-tint,rgb(176 35 79/.1));color:var(--accent-line,#b0234f)}"
+    },
+    {
+      "name": "Bar Chart Row",
+      "kind": "custom",
+      "refersTo": "bar-chart",
+      "description": "Emphasis bar in ink, context bar muted, value labelled at the tip.",
+      "html": "<div class=\"ds-bars\"><p>Emphasis</p><div class=\"ds-bar-row\"><span class=\"ds-bar ds-bar-em\" style=\"width:40%\"></span><b>3.84%</b></div><p>Context</p><div class=\"ds-bar-row\"><span class=\"ds-bar\" style=\"width:52%\"></span><b>5.02%</b></div></div>",
+      "css": ".ds-bars{font-family:'Archivo Variable', ui-sans-serif, system-ui, sans-serif;font-size:.875rem;color:var(--ink,#1e3a2f)}.ds-bars p{margin:16px 0 6px;font-weight:600}.ds-bar-row{display:flex;align-items:center;gap:8px;border-left:1px solid color-mix(in oklab,var(--ink,#1e3a2f) 40%,transparent);padding:4px 0}.ds-bar{display:block;height:12px;border-radius:0 4px 4px 0;background:var(--bar-muted,#6b7d71)}.ds-bar-em{background:var(--ink,#1e3a2f)}.ds-bar-row b{font-size:1rem;font-variant-numeric:tabular-nums}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Plant Lab Bench",
+    "overview": "The page is set like the lab the best project came from. In the light theme it is agar under lab light: a sage page with soft white pools of light and moss-green ink. In the dark theme it is a scanner bed: near-black green with lighter green reflections and a fine grain, and sage ink. Both keep safranin, the red stain used on plant tissue, as the one accent, and it only marks things you can press or that show where you are.\n\nNames and titles are set in a serif, Source Serif 4; everything you read is in Archivo. Each project opens with its serif title, then one short highlighted key result, then a sentence or two, with the rest behind Read more. Key words are bold in full ink, so a skimmer can read only those and still get the story.\n\nThe page is built from a few repeated pieces: a floating pill navigation, sections that each open with a centred heading and one intro sentence, and cards that are a little lighter than what sits behind them. Tokens live in `src/index.css`; the shared link and button classes in `src/components/linkStyles.ts`. Components use token class names (`text-ink`, `bg-accent`, `text-project`, `rounded-card`) and never raw colours.",
+    "keyCharacteristics": [
+      "Two themes from one set of colour names, switched by `data-theme` on `<html>`. The visitor's device setting decides by default; the switch overrides it and is remembered.",
+      "Safranin only on buttons, active states, icons and links. Charts and diagrams are drawn in ink.",
+      "Serif for the name, section headings, project titles and the closing email; Archivo for reading and small bold labels.",
+      "Sections alternate between the page tone and the slightly darker band tone.",
+      "Short text everywhere; detail lives behind Read more, jargon behind a tap-or-hover explanation."
+    ],
+    "rules": [
+      {
+        "name": "The Accent Jobs Rule",
+        "body": "Red appears only on buttons, active states, icons and links. Diagram marks, chart bars, steps and the moving sample are ink. Red has named jobs: `accent` fills, `accent-line` draws focus outlines and icons, `accent-text` colours text, `accent-tint` sits behind icons and the active link. On a dark ground `accent-text` is the ink colour, because a red light enough to read as text turns pink there.",
+        "section": "colors"
+      },
+      {
+        "name": "The Lighter Card Rule",
+        "body": "A card is always a little lighter than what is behind it: `surface` is lighter than both `page` and `band` in both themes, so a card reads as a card on either section tone.",
+        "section": "colors"
+      },
+      {
+        "name": "The Contrast Pairs Rule",
+        "body": "New colour values must pass these pairs, measured on the shipped values. Text: ink at least 9:1 on page, band and surface (light 10.3, 9.6, 11.3; dark 15.7, 14.6, 12.9); ink-soft at least 4.5:1 on all three (light 5.9, 5.5, 6.5; dark 10.4, 9.7, 8.6); white on accent and accent-hover at least 4.5:1 (light 6.6 and 8.8; dark 5.2 and 6.7). Lines and icons at least 3:1: accent-line (light 5.1 to 6.0; dark 4.1 to 5.0) and bar-muted (light 3.4 to 4.0; dark 4.1 to 5.0).",
+        "section": "colors"
+      },
+      {
+        "name": "The No Flat Page Rule",
+        "body": "The page is never one flat colour. `--reflection` paints faint light pools on a fixed layer behind everything (`body::before`): white at 0.5 to 0.65 opacity and one moss shadow at 0.07 in light; green at 0.16 to 0.22 plus a grain and a faint sheen in dark. New pools reuse these tints.",
+        "section": "colors"
+      },
+      {
+        "name": "The Key Result Rule",
+        "body": "Every project reads title, then key result, then description. The key result is one short line with a soft ink highlighter behind it (`.key-result-mark`, ink at 8%, wrapping line by line); its number is marked `**bold**` in `src/data/projects.ts` and rendered at weight 800, the heaviest text in the project. The title stays larger than the key result.",
+        "section": "typography"
+      },
+      {
+        "name": "The Key Word Rule",
+        "body": "Mark key words in the data files with `**double asterisks**`; `Rich.tsx` renders them bold in full ink while the sentence stays ink-soft. A few words per sentence, never a whole sentence.",
+        "section": "typography"
+      },
+      {
+        "name": "The Readable Text Rule",
+        "body": "Strong contrast, body text left-aligned, lines at most about 70 characters (`max-w-measure`, 33rem). Only section headings, intros and Contact are centred. Headings use `text-wrap: balance` and paragraphs `text-wrap: pretty`; `keepTogether()` in `src/lib/text.ts` glues numbers to units and keeps names whole. Headings never break one word per line on phones: the display and section sizes shrink with the window down to 320px.",
+        "section": "typography"
+      },
+      {
+        "name": "The Glossary Rule",
+        "body": "Technical terms are written `[[term]]` in the data files and explained in plain language from `src/data/glossary.ts`. `Term.tsx` shows the explanation in a small ink bubble on tap, hover or keyboard focus, and screen readers always hear it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Floating Layer Rule",
+        "body": "Only things that float over the page (the nav pill, its menu, the glossary bubble) and the photo cast a soft shadow. Cards never do; they get their edge from tone and the inset hairline.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Radius Rule",
+        "body": "Every card, panel, photo, screenshot and tooltip uses `rounded-card` (1.25rem). Buttons, filter buttons, nav links, tags and skill chips are pills (`rounded-full`). Smaller fixed shapes: icon tiles 12px, the key-result highlight 6px, chart bar tips 4px. Circles carry meaning in diagrams: filled ink dots are his steps, outlined dots the team's, petri dishes are circles with an inner rim. Lines are 2px in ink at 50 to 60%.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do use the semantic colour names so a block works in both themes without extra code, and check new values against The Contrast Pairs Rule on page, band and surface.",
+      "Do open every new section with `Section.tsx`: heading, one intro sentence in `src/data/site.ts`, and the next tone in the page/band alternation.",
+      "Do give every project its serif title, then its key result, then one or two sentences; put the rest behind Read more.",
+      "Do keep body text left-aligned in `max-w-measure`, and mark key words with `**` and jargon with `[[ ]]` in the data files.",
+      "Do put new motion in `src/index.css` inside the reduced-motion media query, and animate in the direction the data flows.",
+      "Do draw his own work as filled nodes and the team's as outlined nodes, with the legend and spoken labels; give every chart a hidden table.",
+      "Do add `forced-colors:` system colours to any new drawn line or dot."
+    ],
+    "donts": [
+      "Don't use red in charts, diagrams or text that isn't a link; red is for buttons, active states, icons and links.",
+      "Don't give a card a darker fill than its ground, a different corner radius, or a drop shadow.",
+      "Don't use square or slightly rounded buttons or chips; they are pills.",
+      "Don't add a third font family, or set body text in the serif.",
+      "Don't let a key result or anything else in a project grow larger than its title.",
+      "Don't write more than one or two sentences on a card or row.",
+      "Don't set a colour with a raw hex in a component; add or reuse a token in `src/index.css`.",
+      "Don't plot numbers that are not approved, or put two different tests in one chart."
+    ]
+  }
+}

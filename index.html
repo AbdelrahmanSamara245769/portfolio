@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abdelrahman Samara | Applied Data Science and AI Student</title>
+    <meta
+      name="description"
+      content="Abdelrahman Samara is an Applied Data Science and AI student who takes machine learning models from prototype to production. Projects, skills and contact details."
+    />
+    <!--
+      The browser's own toolbar colour on phones. Keep these two in step with
+      --page in src/index.css; ThemeToggle.tsx also updates it on a switch.
+    -->
+    <meta name="theme-color" content="#e5ece4" />
+    <script>
+      // Picks the colour theme before the page draws, so it never flashes the
+      // wrong one. A ?theme=dark or ?theme=light address wins (handy for
+      // comparing the two side by side), then the visitor's last choice, then
+      // their device setting.
+      ;(function () {
+        var theme = new URLSearchParams(location.search).get('theme')
+        if (theme !== 'light' && theme !== 'dark') {
+          try {
+            theme = localStorage.getItem('theme')
+          } catch (error) {
+            theme = null
+          }
+        }
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        document.documentElement.dataset.theme = theme
+        if (theme === 'dark') {
+          document.querySelector('meta[name="theme-color"]').content = '#0a130f'
+        }
+      })()
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Abdelrahman Samara | Applied Data Science and AI Student" />
+    <meta
+      property="og:description"
+      content="Machine learning projects from prototype to production: plant root detection, robotic inoculation, emotion detection in TV dialogue and more."
+    />
+    <!--
+      Link previews need the image's full address. After the first deploy, replace
+      YOUR-SITE with the site's address and remove the comment marks around these lines.
+    <meta property="og:image" content="https://YOUR-SITE.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p class="p-5">
+        This site needs JavaScript to show its content. You can still
+        <a class="underline" href="/Abdelrahman_Samara_CV.pdf">download my CV</a> or email me at
+        <a class="underline" href="mailto:ab.samar4h@gmail.com">ab.samar4h@gmail.com</a>.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
