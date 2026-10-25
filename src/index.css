@@ -11,7 +11,7 @@
   red stain used on plant tissue, as the accent.
 
   Accent colours appear only on buttons, active states, icons and links:
-  accent fills the Email buttons and the active filter, accent-line draws focus
+  accent fills the Email buttons, accent-line draws focus
   outlines and icons, and accent-text colours a link you point at. Text needs
   more contrast than a line, and on a dark ground a red light enough for text
   turns pink, so on dark grounds accent-text is simply the ink colour.
@@ -376,14 +376,6 @@
   }
 }
 
-/* Projects that come into view after a filter change rise in gently. */
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    translate: 0 0.75rem;
-  }
-}
-
 @keyframes node-pop {
   from {
     opacity: 0;
@@ -437,11 +429,6 @@
   /* The text and the email button arrive almost at once, so the main action is never waited for. */
   .hero-fade {
     animation: fade-in 0.5s var(--ease-out-expo) 0.1s backwards;
-  }
-
-  /* After a filter change, the projects shown rise in one after another (--i). */
-  .filter-in {
-    animation: rise-in 0.5s var(--ease-out-expo) calc(var(--i, 0) * 0.06s) backwards;
   }
 
   /* After a copy, the tick draws itself from one end to the other. */

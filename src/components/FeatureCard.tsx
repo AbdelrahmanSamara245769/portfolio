@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react'
 import { projectUrl, type MainProject, type ProjectPage } from '../data/projects'
 import { ArrowIcon } from './icons'
 import KeyResult from './KeyResult'
@@ -9,11 +8,8 @@ import Rich from './Rich'
 type FeatureCardProps = {
   project: MainProject
   page: ProjectPage
-  // The story stage, shown as the first tag (Prototype or Production).
-  stage: string
-  // Set after a filter change, so the card rises in; style passes its place (--i).
-  animate?: boolean
-  style?: CSSProperties
+  // The story stage, shown as the first tag (Prototype or Production), if it has one.
+  stage?: string
 }
 
 // A main project with a page of its own, as a large card: its visual on top,
@@ -26,7 +22,7 @@ type FeatureCardProps = {
 // shows the focus ring when its link has keyboard focus (has-[a:focus-visible]).
 // On hover it rises 4px and its edge deepens (--card-edge in index.css); like
 // every card, it casts no shadow.
-function FeatureCard({ project, page, stage, animate = false, style }: FeatureCardProps) {
+function FeatureCard({ project, page, stage }: FeatureCardProps) {
   const titleId = `${project.id}-title`
   const { visual } = project
 
@@ -34,8 +30,7 @@ function FeatureCard({ project, page, stage, animate = false, style }: FeatureCa
     <article
       id={project.id}
       aria-labelledby={titleId}
-      style={style}
-      className={`card group relative flex h-full flex-col overflow-hidden transition-[translate,box-shadow] duration-500 ease-out-expo hover:-translate-y-1 hover:[--card-edge:25%] motion-reduce:transition-none motion-reduce:hover:translate-y-0 has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-accent-line ${animate ? 'filter-in' : ''}`}
+      className="card group relative flex h-full flex-col overflow-hidden transition-[translate,box-shadow] duration-500 ease-out-expo hover:-translate-y-1 hover:[--card-edge:25%] motion-reduce:transition-none motion-reduce:hover:translate-y-0 has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-accent-line"
     >
       {/* Every card's visual has the same 16:10 shape, so the two cards line up.
           A recording is cropped evenly; a tall screenshot is cut to its top, where the scan is. */}

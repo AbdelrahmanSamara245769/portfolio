@@ -323,7 +323,7 @@
       },
       "meta": {
         "displayName": "Meta",
-        "purpose": "Facts, tags, captions, nav links, filter buttons, Read more."
+        "purpose": "Facts, tags, captions, nav links, Read more."
       }
     },
     "shadows": [
@@ -393,11 +393,6 @@
         "name": "hero-fade",
         "value": "0.5s at 0.1s",
         "purpose": "Opening: hero text, Email button and tiles."
-      },
-      {
-        "name": "filter-in",
-        "value": "0.5s, 0.06s per item (--i)",
-        "purpose": "Projects rise in after a filter change."
       },
       {
         "name": "reveal-stagger",
@@ -473,14 +468,6 @@
       "description": "Secondary controls: Copy, Download CV, Read more.",
       "html": "<button type=\"button\" class=\"ds-btn-outline\">Read more <svg viewBox=\"0 0 12 12\" width=\"12\" height=\"12\" aria-hidden=\"true\"><path d=\"M2 4.5 6 8.5 10 4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></button>",
       "css": ".ds-btn-outline{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border:2px solid var(--ink,#1e3a2f);border-radius:9999px;background:transparent;color:var(--ink,#1e3a2f);font-family:'Archivo Variable', ui-sans-serif, system-ui, sans-serif;font-weight:600;font-size:.875rem;cursor:pointer;transition:color .2s,background-color .2s}.ds-btn-outline:hover{background:var(--ink,#1e3a2f);color:var(--page,#e5ece4)}.ds-btn-outline:focus-visible{outline:3px solid var(--accent-line,#b0234f);outline-offset:3px}"
-    },
-    {
-      "name": "Filter Buttons",
-      "kind": "button",
-      "refersTo": "filter-button",
-      "description": "Project filters: card pills, the chosen one filled red.",
-      "html": "<div class=\"ds-filters\" role=\"group\"><button aria-pressed=\"true\">All</button><button aria-pressed=\"false\">ML engineering</button><button aria-pressed=\"false\">Data</button><button aria-pressed=\"false\">Software</button></div>",
-      "css": ".ds-filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.ds-filters button{min-height:44px;padding:0 20px;border-radius:9999px;border:0;font:600 .875rem/1.5 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;background:var(--surface,#f2f6f1);color:var(--ink,#1e3a2f);box-shadow:inset 0 0 0 1px rgb(30 58 47/.09);cursor:pointer;transition:color .2s,background-color .2s}.ds-filters button:hover{color:var(--accent-text,#b0234f)}.ds-filters button[aria-pressed=true]{background:var(--accent,#b0234f);color:var(--on-accent,#fff);box-shadow:none}"
     },
     {
       "name": "Text Link",
@@ -581,7 +568,7 @@
       },
       {
         "name": "The One Radius Rule",
-        "body": "Every card, panel, photo, screenshot and tooltip uses `rounded-card` (1.25rem). Buttons, filter buttons, nav links, tags and skill chips are pills (`rounded-full`). Smaller fixed shapes: icon tiles 12px, the key-result highlight 6px, chart bar tips 4px. Circles carry meaning in diagrams: filled ink dots are the owner's steps, outlined dots the team's. Lines are 2px in ink at 50 to 60%.",
+        "body": "Every card, panel, photo, screenshot and tooltip uses `rounded-card` (1.25rem). Buttons, nav links, tags and skill chips are pills (`rounded-full`). Smaller fixed shapes: icon tiles 12px, the key-result highlight 6px, chart bar tips 4px. Circles carry meaning in diagrams: filled ink dots are the owner's steps, outlined dots the team's. Lines are 2px in ink at 50 to 60%.",
         "section": "shapes"
       },
       {

@@ -7,7 +7,6 @@ type StoryProject = { project: MainProject; page: ProjectPage }
 type ProjectStoryProps = {
   prototype: StoryProject
   production: StoryProject
-  animate?: boolean
 }
 
 // The two NPEC projects told as one story: the root detection prototype and
@@ -20,13 +19,13 @@ type ProjectStoryProps = {
 // items for screen readers; the list's own name already says what it shows, so
 // the arrow is hidden from them. It points down while the cards stack and right from lg,
 // and draws itself when the pair scrolls into view (draw-arrow in index.css).
-function ProjectStory({ prototype, production, animate = false }: ProjectStoryProps) {
+function ProjectStory({ prototype, production }: ProjectStoryProps) {
   const [ref, inView] = useInView<HTMLOListElement>()
 
   return (
     <ol ref={ref} data-reveal={revealState(inView)} aria-label={npecStory.label} className="grid gap-y-28 lg:grid-cols-2 lg:gap-x-28">
       <li className="relative">
-        <FeatureCard project={prototype.project} page={prototype.page} stage="Prototype" animate={animate} style={{ '--i': 0 }} />
+        <FeatureCard project={prototype.project} page={prototype.page} stage="Prototype" />
         <div
           aria-hidden="true"
           className="absolute top-full left-0 flex h-28 w-full items-center justify-center gap-3 lg:top-1/2 lg:left-full lg:h-auto lg:w-28 lg:-translate-y-1/2 lg:flex-col lg:gap-2.5"
@@ -40,7 +39,7 @@ function ProjectStory({ prototype, production, animate = false }: ProjectStoryPr
         </div>
       </li>
       <li>
-        <FeatureCard project={production.project} page={production.page} stage="Production" animate={animate} style={{ '--i': 1 }} />
+        <FeatureCard project={production.project} page={production.page} stage="Production" />
       </li>
     </ol>
   )

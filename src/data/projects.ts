@@ -137,7 +137,7 @@ export type ProjectPage = {
   gallery: GalleryItem[]
 }
 
-// The filter buttons above the projects. A project can be in more than one.
+// The areas a project belongs to, shown as tags on it. A project can be in more than one.
 export type Category = 'ml' | 'data' | 'software'
 
 export const categoryLabels: Record<Category, string> = {
@@ -163,7 +163,7 @@ type ProjectBase = {
   visual: ProjectVisual
   // The project's public code on GitHub. The card shows a View code link to it.
   codeUrl?: string
-  // Which filter buttons show this project, and the tags on its card.
+  // The areas this project belongs to, shown as tags on its card.
   categories: Category[]
 }
 

@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useState } from 'react'
 import type { SmallProject } from '../data/projects'
 import CodeLink from './CodeLink'
 import KeyResult from './KeyResult'
@@ -15,13 +15,13 @@ import Rich from './Rich'
 // them with the cards beside it (grid-rows-subgrid): visual, text, actions. So
 // across a row of cards the dividers, titles and buttons all line up, however
 // tall each visual is.
-function ProjectCard({ project, animate = false, style }: { project: SmallProject; animate?: boolean; style?: CSSProperties }) {
+function ProjectCard({ project }: { project: SmallProject }) {
   const [isOpen, setIsOpen] = useState(false)
   const titleId = `${project.id}-title`
   const panelId = `${project.id}-details`
 
   return (
-    <article aria-labelledby={titleId} style={style} className={`card row-span-3 grid grid-rows-subgrid gap-y-0 p-5 sm:p-6 ${animate ? 'filter-in' : ''}`}>
+    <article aria-labelledby={titleId} className="card row-span-3 grid grid-rows-subgrid gap-y-0 p-5 sm:p-6">
       <div className="self-center">
         <ProjectVisual visual={project.visual} />
       </div>

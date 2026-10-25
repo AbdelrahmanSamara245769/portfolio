@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useState } from 'react'
 import type { MainProject } from '../data/projects'
 import { fillsCard } from '../lib/visuals'
 import CodeLink from './CodeLink'
@@ -13,9 +13,6 @@ type ProjectRowProps = {
   project: MainProject
   // Which side the visual sits on from md up. The rows alternate.
   visualSide: 'left' | 'right'
-  // Set after a filter change, so the row rises in; style passes its place (--i).
-  animate?: boolean
-  style?: CSSProperties
 }
 
 // A main project as one row: a large visual on one side, and on the other its
@@ -25,7 +22,7 @@ type ProjectRowProps = {
 //
 // The text comes first in the code, so screen readers and keyboards meet the
 // title before the picture; the order classes put the visual first on screen.
-function ProjectRow({ project, visualSide, animate = false, style }: ProjectRowProps) {
+function ProjectRow({ project, visualSide }: ProjectRowProps) {
   // isOpen records whether the Read more panel is open. Each row keeps its own value.
   const [isOpen, setIsOpen] = useState(false)
   const titleId = `${project.id}-title`
@@ -33,11 +30,7 @@ function ProjectRow({ project, visualSide, animate = false, style }: ProjectRowP
   const { details } = project
 
   return (
-    <article
-      aria-labelledby={titleId}
-      style={style}
-      className={`grid gap-8 md:grid-cols-12 md:items-center md:gap-x-12 md:gap-y-0 ${animate ? 'filter-in' : ''}`}
-    >
+    <article aria-labelledby={titleId} className="grid gap-8 md:grid-cols-12 md:items-center md:gap-x-12 md:gap-y-0">
       <div className="md:col-span-6">
         <h3 id={titleId} className="role-heading text-project">
           {project.title}

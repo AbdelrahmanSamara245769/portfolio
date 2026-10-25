@@ -50,7 +50,7 @@ function ProjectFacts({ project, stacked = false }: { project: Project; stacked?
 }
 
 // Small tags under a project: a story stage (Prototype or Production) if it
-// has one, then the areas the filter buttons use.
+// has one, then the areas it belongs to.
 export function ProjectTags({ project, stage }: { project: Project; stage?: string }) {
   const tags = [...(stage ? [stage] : []), ...project.categories.map((category) => categoryLabels[category])]
 

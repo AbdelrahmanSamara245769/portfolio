@@ -15,7 +15,7 @@ My one-page portfolio as an Applied Data Science and AI student. It shows what I
 
 The page is built for recruiters and engineers who skim. The top section says who I am, what internship I'm looking for and when, and puts my email address first, with a Copy button for anyone without a mail app. Every section opens with a centred heading and one short sentence, and every project leads with evidence: its title, then its key result as a short highlighted line (with the number first where there is one), and a visual of real work. That visual is a screenshot or recording of the real work, such as the deployed platform app or the simulated robot inoculating root tips, or a diagram of how the project works, where filled nodes mark the parts I built and outlined nodes the team's. A client's logo is never the visual: it appears small, in one colour, beside the client's name.
 
-Filter buttons above the projects show only ML engineering, Data or Software work. The projects open with one story: my solo root detection prototype for NPEC and the platform that took it to production, as two large cards joined by a small arrow. Each card opens the project's own page, with the problem, what I built, how it works, the results and a gallery that opens a larger view. The other main projects follow as rows with a Read more button, then the smaller projects as an even grid of cards. The skills sit in one card per area.
+The projects open with one story: my solo root detection prototype for NPEC and the platform that took it to production, as two large cards joined by a small arrow. Each card opens the project's own page, with the problem, what I built, how it works, the results and a gallery that opens a larger view. The other main projects follow as rows with a Read more button, then the smaller projects as an even grid of cards. The skills sit in one card per area.
 
 In the summaries, results and What I built lists, the key words are bold and darker than the rest, so a skimming reader picks them out first.
 
@@ -36,7 +36,7 @@ The colours come from a plant lab, after my plant root projects. They are named 
 | `surface` | `#f2f6f1` | `#18271f` | Cards, always a little lighter than what is behind them |
 | `ink` | `#1e3a2f` moss | `#e5ece4` sage | Text, outlines and the emphasised bar in charts |
 | `ink-soft` | `#4d5c55` lichen | `#b6c4ba` | Body text, labels and captions |
-| `accent` | `#b0234f` safranin | `#c4345f` | Buttons such as Email me and the active filter, after the red stain used on plant tissue |
+| `accent` | `#b0234f` safranin | `#c4345f` | Buttons such as Email me, after the red stain used on plant tissue |
 | `accent-hover` | `#8e1b40` | `#a92a52` | A red button when pointed at |
 | `accent-line` | `#b0234f` | `#de5279` | Icons, focus outlines, and the underline of a link you point at |
 | `accent-tint` | safranin at 10% | `#de5279` at 14% | The squares behind icons, and the current section in the navigation |
@@ -74,7 +74,7 @@ Almost all the text lives in `src/data`, so you rarely need to touch the layout 
 | `src/data/glossary.ts` | The plain-language explanation for each marked technical term |
 | `index.html` | The browser tab title, the search and link-preview descriptions, and a short message for visitors without JavaScript that repeats the email and the CV link |
 
-Projects come in two kinds. A main project has `kind: 'main'` and a `details` object for its Read more panel. A smaller one has `kind: 'small'`, a short `summary`, and optional `more` text that sits behind its Read more button. Every project has a `keyResult`, a `visual` and `categories` (which filter buttons show it: `'ml'`, `'data'` or `'software'`), and a `codeUrl` adds a View code link. Keep the key result short and put the number first where there is one, marked as a key word, like `'**15 of 15** root tips within 1 mm'`; the number then shows in the heaviest weight. TypeScript checks every entry when you run `npm run build`, so a missing field, or a typo in a field name, stops the build with a message pointing at the line.
+Projects come in two kinds. A main project has `kind: 'main'` and a `details` object for its Read more panel. A smaller one has `kind: 'small'`, a short `summary`, and optional `more` text that sits behind its Read more button. Every project has a `keyResult`, a `visual` and `categories` (the areas it belongs to, shown as tags: `'ml'`, `'data'` or `'software'`), and a `codeUrl` adds a View code link. Keep the key result short and put the number first where there is one, marked as a key word, like `'**15 of 15** root tips within 1 mm'`; the number then shows in the heaviest weight. TypeScript checks every entry when you run `npm run build`, so a missing field, or a typo in a field name, stops the build with a message pointing at the line.
 
 To make words stand out as key words, put double asterisks around them, as in Markdown: `'I trained the **clustering model**'`. Mark results and the parts I built, not the team's.
 
@@ -163,7 +163,7 @@ src/
     Term.tsx                a term with a dotted underline that explains itself when tapped
     About.tsx               the About paragraph and facts
     Section.tsx             shared section frame: its tone, centred heading and intro
-    Projects.tsx            the filter buttons, the NPEC story, the other rows and the cards
+    Projects.tsx            the NPEC story, the other rows and the cards
     ProjectStory.tsx        the two NPEC cards and the arrow between them
     FeatureCard.tsx         a project with its own page, as a large card that opens it
     ProjectRow.tsx          a main project as one row, its visual on the left or right

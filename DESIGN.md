@@ -119,16 +119,6 @@ components:
   button-outline-hover:
     backgroundColor: "{colors.moss-ink}"
     textColor: "{colors.sage-agar}"
-  filter-button:
-    backgroundColor: "{colors.agar-surface}"
-    textColor: "{colors.moss-ink}"
-    typography: "{typography.meta}"
-    rounded: "{rounded.full}"
-    padding: "0 20px"
-    height: "44px"
-  filter-button-active:
-    backgroundColor: "{colors.safranin}"
-    textColor: "{colors.on-safranin}"
   nav-link-active:
     backgroundColor: "{colors.safranin-tint}"
     textColor: "{colors.safranin}"
@@ -179,7 +169,7 @@ A low-saturation green world (OKLCH hue about 140 to 167) with one saturated red
 | `surface` | cards, the nav pill, image backing | agar-surface | scanner-surface |
 | `ink` | headings, key words, diagram marks, emphasis bars | moss-ink | sage-agar |
 | `ink-soft` | body text, intros, captions, fact labels | lichen-ink | dark-ink-soft |
-| `accent` | Email buttons, the active filter, text selection | safranin | dark-safranin |
+| `accent` | Email buttons, text selection | safranin | dark-safranin |
 | `accent-hover` | hover on accent fills (always darker) | safranin-deep | dark-safranin-hover |
 | `accent-line` | focus outlines, icons | safranin | dark-safranin-line |
 | `accent-text` | link text when pointed at, active nav link | safranin | sage-agar (same as ink) |
@@ -188,7 +178,7 @@ A low-saturation green world (OKLCH hue about 140 to 167) with one saturated red
 | `bar-muted` | context bars in charts | fern-muted | dark-fern-muted |
 
 ### Primary
-- **Safranin** (safranin; dark-safranin in dark): the plant stain. Fills the Email buttons and the active filter. Its hover is always darker, so white text keeps its contrast.
+- **Safranin** (safranin; dark-safranin in dark): the plant stain. Fills the Email buttons. Its hover is always darker, so white text keeps its contrast.
 
 ### Neutral
 - **Sage Agar** (sage-agar): the light page, and the ink colour in dark.
@@ -226,7 +216,7 @@ Each kind of text has a role. Sizes are `--text-*` tokens used as classes (`text
 - **Key result** (Archivo 600, lead size in rows, the NPEC cards and project pages, body size on the smaller cards): see The Key Result Rule.
 - **Body** (Archivo 400, 1.125rem from 48rem up, 1.0625rem on phones, line-height 1.6): summaries and Read more text, in ink-soft. Card summaries use 1rem.
 - **Title** (Archivo 700, 1.0625rem): small bold labels: the hero tiles, skill group names, About's fact values, the job title (at lead size).
-- **Meta** (Archivo 400, 0.875rem): facts, tags, captions, nav links, filter buttons, Read more.
+- **Meta** (Archivo 400, 0.875rem): facts, tags, captions, nav links, Read more.
 
 ### Named Rules
 **The Key Result Rule.** Every project reads title, then key result, then description. The key result is one short line with a soft ink highlighter behind it (`.key-result-mark`, ink at 8%, wrapping line by line); its number is marked `**bold**` in `src/data/projects.ts` and rendered at weight 800, the heaviest text in the project. The title stays larger than the key result.
@@ -245,8 +235,8 @@ Every section is built by `Section.tsx`: a full-width background (page or band, 
 
 - **Hero:** a named-area grid: photo, name, text stacked on phones; name and text left, photo right from md. Below it, three icon tiles in a row from sm.
 - **About:** the paragraph beside two fact cards from md.
-- **Projects:** three parts under centred filter buttons (All, ML engineering, Data, Software), 112px apart (144px from md).
-  - The two NPEC projects, Root Detection (prototype) then the Platform (production), are two large linked cards (`FeatureCard.tsx`) in an ordered list (`ProjectStory.tsx`): side by side from lg, stacked below. Between them sits a small circular arrow with "Prototype to production", pointing down while the cards stack and right from lg. If a filter hides one of the two, the other stands alone.
+- **Projects:** three parts straight under the section intro, 112px apart (144px from md).
+  - The two NPEC projects, Root Detection (prototype) then the Platform (production), are two large linked cards (`FeatureCard.tsx`) in an ordered list (`ProjectStory.tsx`): side by side from lg, stacked below. Between them sits a small circular arrow with "Prototype to production", pointing down while the cards stack and right from lg.
   - The other main projects (the Emotion pipeline, the AI Stock Market Chatbot) are rows on a 12-column grid, the visual in a card on one half and the text on the other, sides alternating, with Read more (`ProjectRow.tsx`); on phones the visual comes first.
   - Smaller projects are an even card grid (2 columns from md, 3 from lg) that uses CSS subgrid, so visuals, titles and buttons line up across a row (`ProjectCard.tsx`).
 - **Project pages:** `/projects/root-detection` and `/projects/plant-root-analysis-platform`, one HTML file each in `projects/` with its own title and meta. The file's `#root` carries `data-project`, and `src/main.tsx` then shows `ProjectPage.tsx` instead of the one-page site. `vite.config.ts` builds each file as its own page and writes the shared `<head>` lines from `src/shared-head.html` into every one; `cleanUrls` in `vercel.json` drops the `.html`. Top to bottom, in the same 72rem column: the nav pill, an "All projects" back link to `/#projects`; a header (title, key result, summary and tags in 8 of 12 columns on lg, with the facts as label-over-value pairs, client logo, skills and a View code outline button in the right 4); the lead visual; sections whose heading sits in the left third on lg and whose text stays within 42rem (The problem, What I built with a "What the team built" subheading, How it works, Results); the Gallery; and a "More projects" nav above a hairline (All projects, and the other NPEC page, with the story sentence on the prototype's page).
@@ -271,7 +261,7 @@ Mostly flat: depth comes from tone. Cards are lighter than their ground and carr
 
 ## Shapes
 
-**The One Radius Rule.** Every card, panel, photo, screenshot and tooltip uses `rounded-card` (1.25rem). Buttons, filter buttons, nav links, tags and skill chips are pills (`rounded-full`). Smaller fixed shapes: icon tiles 12px, the key-result highlight 6px, chart bar tips 4px. Circles carry meaning in diagrams: filled ink dots are the owner's steps, outlined dots the team's. Lines are 2px in ink at 50 to 60%.
+**The One Radius Rule.** Every card, panel, photo, screenshot and tooltip uses `rounded-card` (1.25rem). Buttons, nav links, tags and skill chips are pills (`rounded-full`). Smaller fixed shapes: icon tiles 12px, the key-result highlight 6px, chart bar tips 4px. Circles carry meaning in diagrams: filled ink dots are the owner's steps, outlined dots the team's. Lines are 2px in ink at 50 to 60%.
 
 ## Components
 
@@ -280,16 +270,15 @@ All pills, at least 44px tall. Only colours transition (200ms), so focus shows a
 - **Email (primary):** accent fill, white semibold text. In the hero it is 48px tall with a mail icon and the address; in the nav it reads "Email me" and is the nav's only coloured button.
 - **Outline (secondary):** 2px ink border, ink text; on hover it fills with ink and the text turns page colour. Copy, Download CV in the hero, Read more (with a chevron that turns over).
 - **Copy feedback:** the icon becomes a tick that draws itself, the label says Copied for 2.5s, and a status line tells screen readers.
-- **Filter buttons:** meta size, semibold. Off: a `.card` pill whose text turns `accent-text` on hover. On: accent fill, `aria-pressed`.
 
 ### Text links
 Semibold, underlined in ink at 40% with a 4px offset, at least 44px tall; on hover the text turns `accent-text` and the underline `accent-line`. The Contact email has no underline until pointed at.
 
 ### Tags and chips
-Pills with ink at 6% behind, meta size, medium weight; static. Project tags show the story stage (Prototype or Production) first, then the filter areas.
+Pills with ink at 6% behind, meta size, medium weight; static. Project tags show the story stage (Prototype or Production) first, then the areas the project belongs to.
 
 ### Cards
-`.card`: `surface` fill, `rounded-card`, inset hairline. Used for project visuals, the NPEC cards, smaller projects, a project page's lead visual, skill groups, About's facts, the hero tiles, the inactive filters and the phone menu.
+`.card`: `surface` fill, `rounded-card`, inset hairline. Used for project visuals, the NPEC cards, smaller projects, a project page's lead visual, skill groups, About's facts, the hero tiles and the phone menu.
 
 **NPEC cards** (`FeatureCard.tsx`): a 16:10 visual on top with a hairline below it (the recording cropped to fill, or the app screenshot cut to its top, where the scan is), then the title, key result, one sentence, facts, tags (Prototype or Production first) and a "View project" line with an arrow, pushed to the card's foot so both cards end level. The whole card is the link: the title's link has an `::after` layer stretched over the card (`after:absolute after:inset-0`), so screen readers hear the title as the link's name while a click anywhere follows it. The recording's Pause button sits above that layer (`z-10`). The card shows the focus ring when its link has keyboard focus (`has-[a:focus-visible]`). On hover the card rises 4px (500ms, `ease-out-expo`; it stays in place with reduced motion), its edge deepens to ink at 25%, the "View project" line turns `accent-text` and its arrow nudges right.
 
@@ -326,7 +315,7 @@ Described in the Motion block at the end of `src/index.css`. Everything sits ins
 - **Opening:** the photo is scanned in top to bottom (1.5s); the name inks in on the serif's weight axis (1.3s); the hero text, Email button and tiles fade in over 0.5s.
 - **On scroll, once:** bars grow from their baseline, diagram lines and nodes trace in order, skill tags slide into their cards, the prototype-to-production arrow draws itself (`.draw-arrow`, 0.9s), and on a project page the How it works steps trace in.
 - **Looping, pausable:** the robot recording on the Root Detection card and page.
-- **On interaction:** projects rise in after a filter change, an NPEC card rises 4px on hover, the How it works steps trace each time Read more opens, the copy tick draws, the larger view and each item in it fade in (0.3s).
+- **On interaction:** an NPEC card rises 4px on hover, the How it works steps trace each time Read more opens, the copy tick draws, the larger view and each item in it fade in (0.3s).
 - **Scroll-linked, where supported:** the reflections drift.
 
 ## Do's and Don'ts
