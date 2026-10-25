@@ -1,34 +1,46 @@
-import { npecStory, type MainProject } from '../data/projects'
-import ProjectRow from './ProjectRow'
-import Rich from './Rich'
+import { npecStory, type MainProject, type ProjectPage } from '../data/projects'
+import { revealState, useInView } from '../lib/useInView'
+import FeatureCard from './FeatureCard'
 
-// The two NPEC projects told as one story: the root detection prototype first,
-// then the platform that took it to production. The platform is the featured
-// project, so it is the largest thing in the section.
+type StoryProject = { project: MainProject; page: ProjectPage }
+
+type ProjectStoryProps = {
+  prototype: StoryProject
+  production: StoryProject
+  animate?: boolean
+}
+
+// The two NPEC projects told as one story: the root detection prototype and
+// the platform that took it to production, as two large cards side by side
+// from lg (stacked on phones and tablets, where two would be too narrow), each
+// opening its own page.
 //
-// It is an ordered list of two stages. Between the two rows, a line runs down
-// the middle to the sentence that joins them, and on to the production row.
-// The line is drawn twice: a faint one that is always there, and a darker one
-// on top that grows as you scroll from one row to the other (the story-line
-// animation in index.css).
-function ProjectStory({ prototype, production }: { prototype: MainProject; production: MainProject }) {
+// It is an ordered list of the two stages. The small arrow between them sits in
+// the gap, inside the first card's list item, so the list keeps exactly two
+// items for screen readers; the list's own name already says what it shows, so
+// the arrow is hidden from them. It points down while the cards stack and right from lg,
+// and draws itself when the pair scrolls into view (draw-arrow in index.css).
+function ProjectStory({ prototype, production, animate = false }: ProjectStoryProps) {
+  const [ref, inView] = useInView<HTMLOListElement>()
+
   return (
-    <ol aria-label={npecStory.label}>
-      <li>
-        <ProjectRow project={prototype} visualSide="left" stage="Prototype" />
+    <ol ref={ref} data-reveal={revealState(inView)} aria-label={npecStory.label} className="grid gap-y-28 lg:grid-cols-2 lg:gap-x-28">
+      <li className="relative">
+        <FeatureCard project={prototype.project} page={prototype.page} stage="Prototype" animate={animate} style={{ '--i': 0 }} />
+        <div
+          aria-hidden="true"
+          className="absolute top-full left-0 flex h-28 w-full items-center justify-center gap-3 lg:top-1/2 lg:left-full lg:h-auto lg:w-28 lg:-translate-y-1/2 lg:flex-col lg:gap-2.5"
+        >
+          <span className="grid size-11 place-items-center rounded-full bg-surface text-ink ring-1 ring-ink/15">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="size-5 rotate-90 lg:rotate-0">
+              <path d="M4.5 12h15M14 6.5l5.5 5.5-5.5 5.5" pathLength={1} className="draw-arrow" />
+            </svg>
+          </span>
+          <span className="text-meta font-semibold text-ink-soft lg:max-w-24 lg:text-center">Prototype to production</span>
+        </div>
       </li>
       <li>
-        <div className="relative flex flex-col items-center py-10 md:py-14">
-          <span aria-hidden="true" className="absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 bg-ink/15 forced-colors:bg-[CanvasText]" />
-          <span aria-hidden="true" className="story-line absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 bg-ink/50 forced-colors:hidden" />
-          <p className="card relative max-w-md px-6 py-4 text-center text-ink-soft">
-            <span className="role-title block text-meta text-ink">Prototype to production</span>
-            <span className="mt-1 block">
-              <Rich text={npecStory.link} />
-            </span>
-          </p>
-        </div>
-        <ProjectRow project={production} visualSide="right" stage="Production" featured />
+        <FeatureCard project={production.project} page={production.page} stage="Production" animate={animate} style={{ '--i': 1 }} />
       </li>
     </ol>
   )

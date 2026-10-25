@@ -157,7 +157,7 @@ components:
 
 The page is set like the lab the best project came from. In the light theme it is agar under lab light: a sage page with soft white pools of light and moss-green ink. In the dark theme it is a scanner bed: near-black green with lighter green reflections and a fine grain, and sage ink. Both keep safranin, the red stain used on plant tissue, as the one accent, and it only marks things you can press or that show where you are.
 
-Names and titles are set in a serif, Source Serif 4; everything you read is in Archivo. Each project opens with its serif title, then one short highlighted key result, then a sentence or two, with the rest behind Read more. Key words are bold in full ink, so a skimmer can read only those and still get the story.
+Names and titles are set in a serif, Source Serif 4; everything you read is in Archivo. Each project opens with its serif title, then one short highlighted key result, then a sentence or two, with the rest behind Read more or on the project's own page. Key words are bold in full ink, so a skimmer can read only those and still get the story.
 
 The page is built from a few repeated pieces: a floating pill navigation, sections that each open with a centred heading and one intro sentence, and cards that are a little lighter than what sits behind them. Tokens live in `src/index.css`; the shared link and button classes in `src/components/linkStyles.ts`. Components use token class names (`text-ink`, `bg-accent`, `text-project`, `rounded-card`) and never raw colours.
 
@@ -166,7 +166,7 @@ The page is built from a few repeated pieces: a floating pill navigation, sectio
 - Safranin only on buttons, active states, icons and links. Charts and diagrams are drawn in ink.
 - Serif for the name, section headings, project titles and the closing email; Archivo for reading and small bold labels.
 - Sections alternate between the page tone and the slightly darker band tone.
-- Short text everywhere; detail lives behind Read more, jargon behind a tap-or-hover explanation.
+- Short text everywhere; detail lives behind Read more or on a project page, jargon behind a tap-or-hover explanation.
 
 ## Colors
 
@@ -199,7 +199,7 @@ A low-saturation green world (OKLCH hue about 140 to 167) with one saturated red
 - **Fern Muted**: the context bar next to an ink emphasis bar.
 
 ### Named Rules
-**The Accent Jobs Rule.** Red appears only on buttons, active states, icons and links. Diagram marks, chart bars, steps and the moving sample are ink. Red has named jobs: `accent` fills, `accent-line` draws focus outlines and icons, `accent-text` colours text, `accent-tint` sits behind icons and the active link. On a dark ground `accent-text` is the ink colour, because a red light enough to read as text turns pink there.
+**The Accent Jobs Rule.** Red appears only on buttons, active states, icons and links. Diagram marks, chart bars, steps and client logos are ink (a logo takes the text colour beside it). Red has named jobs: `accent` fills, `accent-line` draws focus outlines and icons, `accent-text` colours text, `accent-tint` sits behind icons and the active link. On a dark ground `accent-text` is the ink colour, because a red light enough to read as text turns pink there.
 
 **The Lighter Card Rule.** A card is always a little lighter than what is behind it: `surface` is lighter than both `page` and `band` in both themes, so a card reads as a card on either section tone.
 
@@ -219,11 +219,11 @@ Each kind of text has a role. Sizes are `--text-*` tokens used as classes (`text
 ### Hierarchy
 - **Display** (serif 600, clamp 2.75rem to 6rem, line-height 0.95): the name only, first and last name on two lines.
 - **Email** (serif 600, clamp 1.5rem to 4rem): the address that closes the page, centred in Contact.
-- **Section** (serif 600, clamp 2.25rem to 3.19rem): the centred heading that opens each section.
-- **Project** (serif 600, clamp 1.75rem to 2.25rem): a main project's title, the largest text in its row; also the "Other individual projects" heading.
-- **Card** (serif 600, 1.375rem): a smaller project's title, the largest text on its card.
+- **Section** (serif 600, clamp 2.25rem to 3.19rem): the centred heading that opens each section; also a project page's title, set left in `role-display`.
+- **Project** (serif 600, clamp 1.75rem to 2.25rem): a main project's title, the largest text in its row or card; also the "Other individual projects" heading and the section headings on a project page (The problem, What I built, How it works, Results, Gallery).
+- **Card** (serif 600, 1.375rem): a smaller project's title, the largest text on its card; also the link to the other NPEC page at the foot of a project page.
 - **Lead** (Archivo 400, 1.25rem): section intros, the hero statement, the About paragraph.
-- **Key result** (Archivo 600, lead size in rows, body size on cards): see The Key Result Rule.
+- **Key result** (Archivo 600, lead size in rows, the NPEC cards and project pages, body size on the smaller cards): see The Key Result Rule.
 - **Body** (Archivo 400, 1.125rem from 48rem up, 1.0625rem on phones, line-height 1.6): summaries and Read more text, in ink-soft. Card summaries use 1rem.
 - **Title** (Archivo 700, 1.0625rem): small bold labels: the hero tiles, skill group names, About's fact values, the job title (at lead size).
 - **Meta** (Archivo 400, 0.875rem): facts, tags, captions, nav links, filter buttons, Read more.
@@ -245,7 +245,11 @@ Every section is built by `Section.tsx`: a full-width background (page or band, 
 
 - **Hero:** a named-area grid: photo, name, text stacked on phones; name and text left, photo right from md. Below it, three icon tiles in a row from sm.
 - **About:** the paragraph beside two fact cards from md.
-- **Projects:** centred filter buttons (All, ML engineering, Data, Software). Main projects are rows on a 12-column grid, the visual in a card on one side and the text on the other, sides alternating (`ProjectRow.tsx`); on phones the visual comes first. The Root Detection and Platform rows are joined as one prototype-to-production story (`ProjectStory.tsx`) by a centred line and a small card with the sentence that links them; the featured Platform row gives its visual 7 of 12 columns. Smaller projects are an even card grid (2 columns from md, 3 from lg) that uses CSS subgrid, so visuals, titles and buttons line up across a row (`ProjectCard.tsx`). Rows are 96px apart (128px from md).
+- **Projects:** three parts under centred filter buttons (All, ML engineering, Data, Software), 112px apart (144px from md).
+  - The two NPEC projects, Root Detection (prototype) then the Platform (production), are two large linked cards (`FeatureCard.tsx`) in an ordered list (`ProjectStory.tsx`): side by side from lg, stacked below. Between them sits a small circular arrow with "Prototype to production", pointing down while the cards stack and right from lg. If a filter hides one of the two, the other stands alone.
+  - The other main projects (the Emotion pipeline, the AI Stock Market Chatbot) are rows on a 12-column grid, the visual in a card on one half and the text on the other, sides alternating, with Read more (`ProjectRow.tsx`); on phones the visual comes first.
+  - Smaller projects are an even card grid (2 columns from md, 3 from lg) that uses CSS subgrid, so visuals, titles and buttons line up across a row (`ProjectCard.tsx`).
+- **Project pages:** `/projects/root-detection` and `/projects/plant-root-analysis-platform`, one HTML file each in `projects/` with its own title and meta. The file's `#root` carries `data-project`, and `src/main.tsx` then shows `ProjectPage.tsx` instead of the one-page site. `vite.config.ts` builds each file as its own page and writes the shared `<head>` lines from `src/shared-head.html` into every one; `cleanUrls` in `vercel.json` drops the `.html`. Top to bottom, in the same 72rem column: the nav pill, an "All projects" back link to `/#projects`; a header (title, key result, summary and tags in 8 of 12 columns on lg, with the facts as label-over-value pairs, client logo, skills and a View code outline button in the right 4); the lead visual; sections whose heading sits in the left third on lg and whose text stays within 42rem (The problem, What I built with a "What the team built" subheading, How it works, Results); the Gallery; and a "More projects" nav above a hairline (All projects, and the other NPEC page, with the story sentence on the prototype's page).
 - **Skills:** icon cards, three across then two across from lg.
 - **Contact:** centred, the large serif email with Copy beside it, CV and LinkedIn links below.
 
@@ -258,15 +262,16 @@ Mostly flat: depth comes from tone. Cards are lighter than their ground and carr
 ### Shadow Vocabulary
 - **Float** (`0 10px 30px -14px rgb(10 19 15 / 0.45)`): the nav pill and its phone menu.
 - **Bubble** (`0 8px 24px -8px rgb(10 19 15 / 0.45)`): the glossary explanation.
+- **Overlay** (`0 6px 16px -8px rgb(10 19 15 / 0.45)` plus a 1px ink ring at 15%): the controls laid over a picture, the recording's Pause button and the gallery's play badge.
 - **Photo lift** (`0 28px 60px -30px rgb(10 19 15 / 0.55)` plus a 1px ink ring at 15%): the profile photo.
-- **Card edge** (`inset 0 0 0 1px` ink at 9%): every `.card`.
+- **Card edge** (`inset 0 0 0 1px` ink at `--card-edge`, 9%): every `.card`. An NPEC card raises it to 25% on hover instead of casting a shadow.
 
 ### Named Rules
-**The Floating Layer Rule.** Only things that float over the page (the nav pill, its menu, the glossary bubble) and the photo cast a soft shadow. Cards never do; they get their edge from tone and the inset hairline.
+**The Floating Layer Rule.** Only things that float over the page (the nav pill, its menu, the glossary bubble), the controls laid over a picture (the Pause button, the play badge) and the photo cast a soft shadow. Cards never do, not even on hover; they get their edge from tone and the inset hairline.
 
 ## Shapes
 
-**The One Radius Rule.** Every card, panel, photo, screenshot and tooltip uses `rounded-card` (1.25rem). Buttons, filter buttons, nav links, tags and skill chips are pills (`rounded-full`). Smaller fixed shapes: icon tiles 12px, the key-result highlight 6px, chart bar tips 4px. Circles carry meaning in diagrams: filled ink dots are his steps, outlined dots the team's, petri dishes are circles with an inner rim. Lines are 2px in ink at 50 to 60%.
+**The One Radius Rule.** Every card, panel, photo, screenshot and tooltip uses `rounded-card` (1.25rem). Buttons, filter buttons, nav links, tags and skill chips are pills (`rounded-full`). Smaller fixed shapes: icon tiles 12px, the key-result highlight 6px, chart bar tips 4px. Circles carry meaning in diagrams: filled ink dots are the owner's steps, outlined dots the team's. Lines are 2px in ink at 50 to 60%.
 
 ## Components
 
@@ -284,19 +289,33 @@ Semibold, underlined in ink at 40% with a 4px offset, at least 44px tall; on hov
 Pills with ink at 6% behind, meta size, medium weight; static. Project tags show the story stage (Prototype or Production) first, then the filter areas.
 
 ### Cards
-`.card`: `surface` fill, `rounded-card`, inset hairline. Used for project visuals, smaller projects, skill groups, About's facts, the hero tiles, the story connector, the inactive filters and the phone menu.
+`.card`: `surface` fill, `rounded-card`, inset hairline. Used for project visuals, the NPEC cards, smaller projects, a project page's lead visual, skill groups, About's facts, the hero tiles, the inactive filters and the phone menu.
+
+**NPEC cards** (`FeatureCard.tsx`): a 16:10 visual on top with a hairline below it (the recording cropped to fill, or the app screenshot cut to its top, where the scan is), then the title, key result, one sentence, facts, tags (Prototype or Production first) and a "View project" line with an arrow, pushed to the card's foot so both cards end level. The whole card is the link: the title's link has an `::after` layer stretched over the card (`after:absolute after:inset-0`), so screen readers hear the title as the link's name while a click anywhere follows it. The recording's Pause button sits above that layer (`z-10`). The card shows the focus ring when its link has keyboard focus (`has-[a:focus-visible]`). On hover the card rises 4px (500ms, `ease-out-expo`; it stays in place with reduced motion), its edge deepens to ink at 25%, the "View project" line turns `accent-text` and its arrow nudges right.
 
 ### Icon tiles
 A 44px square with 12px corners, `accent-tint` behind an `accent-line` icon. In the hero tiles and on each skill card.
 
 ### Navigation
-A floating pill on `surface` at 90% with a blur behind it: the name on the left (shortened to "A. Samara" on phones), four section links from md, the theme switch, Email me. The section you are reading gets an `accent-tint` pill and `accent-text` (with `aria-current`). On phones the links fold into a Menu button that opens a card below the pill; Escape or a tap outside closes it. A skip link appears on keyboard focus.
+A floating pill on `surface` at 90% with a blur behind it: the name on the left (shortened to "A. Samara" on phones), four section links from md, the theme switch, Email me. The section you are reading gets an `accent-tint` pill and `accent-text` (with `aria-current`). On phones the links fold into a Menu button that opens a card below the pill; Escape or a tap outside closes it. A skip link appears on keyboard focus. On a project page the links lead back to the one-page site's sections and Projects is marked current.
 
 ### Theme switch
 A 40px by 24px pill track with a 2px ink border, a sliding ink knob, and a moon or sun; `aria-pressed`. The new theme spreads in a circle from the switch over 650ms.
 
-### Charts and diagrams
-Drawn with HTML and CSS from numbers in `src/data/projects.ts`, inside `ProjectVisual.tsx`, all in ink: bar chart (emphasis bar ink, context bars `bar-muted`, a hidden table for screen readers), flow diagram (filled nodes his, outlined nodes the team's; in the featured row an ink sample travels the line), branch diagram, petri dishes, and the How it works steps in Read more.
+### Project visuals
+Chosen in `ProjectVisual.tsx` (rows and smaller cards) and `FeatureCard.tsx` (the NPEC cards): the real work first, otherwise a diagram of how it works.
+
+**The Evidence Rule.** A project's main visual shows the work: a screenshot, a recording, a chart of approved numbers or a how-it-works diagram. A logo names the client but is not evidence, so it is never a project's main visual (the owner's rule, 2026-10-18).
+- **Screenshots and recordings** (`image`, `animation`) fill their card to its edges, with a hairline above the caption. The Platform shows its deployed web app; Root Detection loops its simulated robot run (a 960×720 WebM/MP4 video that loads and plays only in view) with a Pause/Play pill in the top-right corner, and starts on the still frame under reduced motion (`Recording.tsx`; `fill` crops it to cover a fixed box).
+- **Charts and diagrams** are drawn with HTML and CSS from `src/data/projects.ts`, all in ink: bar chart (emphasis bar ink, context bars `bar-muted`, a hidden table for screen readers), flow diagram (filled nodes for the owner's parts, outlined nodes the team's; the Emotion pipeline and the stock chatbot), branch diagram, and the How it works steps in Read more and on project pages.
+
+### Client logos
+`ClientLogo.tsx`, from the list in `src/data/projects.ts`: small and in one colour, beside the client's name in the facts line and in a project page's header. The logo file is a CSS mask, so only its shape is used and the current text colour shows through (`bg-current`); it follows the theme like the name beside it, takes `CanvasText` in forced colours and keeps its colour in print (`print-color-adjust: exact`). Every logo is 1.15em tall, whatever its width, and is hidden from screen readers because the name follows. The files are the clients' own: NPEC's plant symbol (its site icon, made a one-colour shape) and Content Intelligence Agency's mark (its SVG with the empty margins trimmed). A new logo needs a transparent background.
+
+### Project page pieces
+- **Lead visual:** a `.card` whose picture sits centred on the `band` colour, so a tall screenshot stands at most 44rem high instead of stretching; the recording plays in it at up to 60rem wide. Below, a hairline, the caption and a "View larger" text link.
+- **Gallery** (`Gallery.tsx`): a justified flex grid in which every picture keeps its own shape. Each item's `flex-grow` and `flex-basis` are proportional to its aspect ratio (basis: ratio × 12rem, the row's starting height), so the pictures in a row share one height and none is cropped; a picture alone on a row spans it. Each picture is a `rounded-card` button with a 1px ink ring at 10% and its caption below; it scales up 3% on hover. A video shows its poster with a round play badge.
+- **Larger view** (`Lightbox.tsx`): the browser's modal `<dialog>`, set to `data-theme="dark"` so it always uses the dark colours, over a 95% dark backdrop (`.lightbox::backdrop`); the page behind cannot scroll (`html:has(dialog[open])`). One item at a time, with "n / total" and the caption under it, round 48px buttons for previous and next at the sides (under the picture on phones) and Close in the corner. Arrow keys and a sideways swipe step through the set and wrap around; Escape or a click outside closes it, focus returns to the button that opened it, and a polite live region says where you are.
 
 ### Read more
 The panel unfolds by animating grid rows from 0fr to 1fr (500ms), is `inert` while closed, and prints open. In a row it opens across the full width: Result, Problem, What I built, How it works, Skills.
@@ -305,16 +324,18 @@ The panel unfolds by animating grid rows from 0fr to 1fr (500ms), is `inert` whi
 Described in the Motion block at the end of `src/index.css`. Everything sits inside `@media screen and (prefers-reduced-motion: no-preference)`; print and reduced motion show the finished page.
 - **Easing:** `--ease-out-expo` (`cubic-bezier(0.16, 1, 0.3, 1)`) for almost everything; a steady `cubic-bezier(0.45, 0, 0.2, 1)` for the photo scan.
 - **Opening:** the photo is scanned in top to bottom (1.5s); the name inks in on the serif's weight axis (1.3s); the hero text, Email button and tiles fade in over 0.5s.
-- **On scroll, once:** bars grow from their baseline, diagram lines and nodes trace in order, the dish roots grow and their tips are inoculated one by one, skill tags slide into their cards.
-- **On interaction:** projects rise in after a filter change, the How it works steps trace each time Read more opens, the copy tick draws.
-- **Scroll-linked, where supported:** the reflections drift and the story line grows.
+- **On scroll, once:** bars grow from their baseline, diagram lines and nodes trace in order, skill tags slide into their cards, the prototype-to-production arrow draws itself (`.draw-arrow`, 0.9s), and on a project page the How it works steps trace in.
+- **Looping, pausable:** the robot recording on the Root Detection card and page.
+- **On interaction:** projects rise in after a filter change, an NPEC card rises 4px on hover, the How it works steps trace each time Read more opens, the copy tick draws, the larger view and each item in it fade in (0.3s).
+- **Scroll-linked, where supported:** the reflections drift.
 
 ## Do's and Don'ts
 
 ### Do:
 - **Do** use the semantic colour names so a block works in both themes without extra code, and check new values against The Contrast Pairs Rule on page, band and surface.
 - **Do** open every new section with `Section.tsx`: heading, one intro sentence in `src/data/site.ts`, and the next tone in the page/band alternation.
-- **Do** give every project its serif title, then its key result, then one or two sentences; put the rest behind Read more.
+- **Do** give every project its serif title, then its key result, then one or two sentences; put the rest behind Read more or on its project page.
+- **Do** lead a project with evidence of the work; show the client's logo only small, in the text colour, beside the client's name.
 - **Do** keep body text left-aligned in `max-w-measure`, and mark key words with `**` and jargon with `[[ ]]` in the data files.
 - **Do** put new motion in `src/index.css` inside the reduced-motion media query, and animate in the direction the data flows.
 - **Do** draw his own work as filled nodes and the team's as outlined nodes, with the legend and spoken labels; give every chart a hidden table.
@@ -329,3 +350,4 @@ Described in the Motion block at the end of `src/index.css`. Everything sits ins
 - **Don't** write more than one or two sentences on a card or row.
 - **Don't** set a colour with a raw hex in a component; add or reuse a token in `src/index.css`.
 - **Don't** plot numbers that are not approved, or put two different tests in one chart.
+- **Don't** make a logo a project's main visual, or show it in its own colours.

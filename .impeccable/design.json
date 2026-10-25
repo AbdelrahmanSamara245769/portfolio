@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-09T21:10:54.765Z",
+  "generatedAt": "2026-10-18T12:00:00.000Z",
   "title": "Design System: Abdelrahman Samara portfolio",
   "extensions": {
     "colorMeta": {
@@ -291,15 +291,15 @@
       },
       "section": {
         "displayName": "Section heading",
-        "purpose": "The centred heading that opens each section."
+        "purpose": "The centred heading that opens each section; also a project page's title (role-display, left-aligned)."
       },
       "project": {
         "displayName": "Project title",
-        "purpose": "A main project's title, the largest text in its row."
+        "purpose": "A main project's title, the largest text in its row or card; also a project page's section headings."
       },
       "card": {
         "displayName": "Card title",
-        "purpose": "A smaller project's title, the largest text on its card."
+        "purpose": "A smaller project's title, the largest text on its card; also the link to the other NPEC page."
       },
       "lead": {
         "displayName": "Lead",
@@ -338,14 +338,19 @@
         "purpose": "The glossary explanation bubble."
       },
       {
+        "name": "overlay",
+        "value": "0 6px 16px -8px rgb(10 19 15 / 0.45)",
+        "purpose": "Controls laid over a picture: the recording's Pause button and the gallery's play badge, with a 1px ink ring at 15%."
+      },
+      {
         "name": "photo-lift",
         "value": "0 28px 60px -30px rgb(10 19 15 / 0.55)",
         "purpose": "The profile photo, with a 1px ink ring at 15%."
       },
       {
         "name": "card-edge",
-        "value": "inset 0 0 0 1px color-mix(in oklab, var(--ink) 9%, transparent)",
-        "purpose": "Every .card."
+        "value": "inset 0 0 0 1px color-mix(in oklab, var(--ink) var(--card-edge, 9%), transparent)",
+        "purpose": "Every .card. An NPEC card raises --card-edge to 25% on hover instead of casting a shadow."
       },
       {
         "name": "focus-outline",
@@ -370,6 +375,11 @@
         "purpose": "Hover transitions, colours only."
       },
       {
+        "name": "card-rise",
+        "value": "500ms ease-out-expo, translateY -4px",
+        "purpose": "An NPEC card rises on hover while its edge deepens; it stays in place with reduced motion."
+      },
+      {
         "name": "photo-scan",
         "value": "1.5s",
         "purpose": "Opening: the photo is uncovered top to bottom behind a scan line."
@@ -392,7 +402,17 @@
       {
         "name": "reveal-stagger",
         "value": "0.14s to 0.18s per step (--i)",
-        "purpose": "Charts, diagrams, dishes and skill tags, once, on scroll into view."
+        "purpose": "Charts, diagrams and skill tags, once, on scroll into view."
+      },
+      {
+        "name": "draw-arrow",
+        "value": "0.9s at 0.35s, stroke-dashoffset 1 to 0",
+        "purpose": "The prototype-to-production arrow between the NPEC cards draws itself once the pair scrolls into view."
+      },
+      {
+        "name": "lightbox-fade",
+        "value": "0.3s ease-out",
+        "purpose": "The larger view fades in, and so does each picture as you step through."
       },
       {
         "name": "panel-unfold",
@@ -505,18 +525,18 @@
   ],
   "narrative": {
     "northStar": "The Plant Lab Bench",
-    "overview": "The page is set like the lab the best project came from. In the light theme it is agar under lab light: a sage page with soft white pools of light and moss-green ink. In the dark theme it is a scanner bed: near-black green with lighter green reflections and a fine grain, and sage ink. Both keep safranin, the red stain used on plant tissue, as the one accent, and it only marks things you can press or that show where you are.\n\nNames and titles are set in a serif, Source Serif 4; everything you read is in Archivo. Each project opens with its serif title, then one short highlighted key result, then a sentence or two, with the rest behind Read more. Key words are bold in full ink, so a skimmer can read only those and still get the story.\n\nThe page is built from a few repeated pieces: a floating pill navigation, sections that each open with a centred heading and one intro sentence, and cards that are a little lighter than what sits behind them. Tokens live in `src/index.css`; the shared link and button classes in `src/components/linkStyles.ts`. Components use token class names (`text-ink`, `bg-accent`, `text-project`, `rounded-card`) and never raw colours.",
+    "overview": "The page is set like the lab the best project came from. In the light theme it is agar under lab light: a sage page with soft white pools of light and moss-green ink. In the dark theme it is a scanner bed: near-black green with lighter green reflections and a fine grain, and sage ink. Both keep safranin, the red stain used on plant tissue, as the one accent, and it only marks things you can press or that show where you are.\n\nNames and titles are set in a serif, Source Serif 4; everything you read is in Archivo. Each project opens with its serif title, then one short highlighted key result, then a sentence or two, with the rest behind Read more or on the project's own page. Key words are bold in full ink, so a skimmer can read only those and still get the story.\n\nThe page is built from a few repeated pieces: a floating pill navigation, sections that each open with a centred heading and one intro sentence, and cards that are a little lighter than what sits behind them. Tokens live in `src/index.css`; the shared link and button classes in `src/components/linkStyles.ts`. Components use token class names (`text-ink`, `bg-accent`, `text-project`, `rounded-card`) and never raw colours.",
     "keyCharacteristics": [
       "Two themes from one set of colour names, switched by `data-theme` on `<html>`. The visitor's device setting decides by default; the switch overrides it and is remembered.",
       "Safranin only on buttons, active states, icons and links. Charts and diagrams are drawn in ink.",
       "Serif for the name, section headings, project titles and the closing email; Archivo for reading and small bold labels.",
       "Sections alternate between the page tone and the slightly darker band tone.",
-      "Short text everywhere; detail lives behind Read more, jargon behind a tap-or-hover explanation."
+      "Short text everywhere; detail lives behind Read more or on a project page, jargon behind a tap-or-hover explanation."
     ],
     "rules": [
       {
         "name": "The Accent Jobs Rule",
-        "body": "Red appears only on buttons, active states, icons and links. Diagram marks, chart bars, steps and the moving sample are ink. Red has named jobs: `accent` fills, `accent-line` draws focus outlines and icons, `accent-text` colours text, `accent-tint` sits behind icons and the active link. On a dark ground `accent-text` is the ink colour, because a red light enough to read as text turns pink there.",
+        "body": "Red appears only on buttons, active states, icons and links. Diagram marks, chart bars, steps and client logos are ink (a logo takes the text colour beside it). Red has named jobs: `accent` fills, `accent-line` draws focus outlines and icons, `accent-text` colours text, `accent-tint` sits behind icons and the active link. On a dark ground `accent-text` is the ink colour, because a red light enough to read as text turns pink there.",
         "section": "colors"
       },
       {
@@ -556,19 +576,25 @@
       },
       {
         "name": "The Floating Layer Rule",
-        "body": "Only things that float over the page (the nav pill, its menu, the glossary bubble) and the photo cast a soft shadow. Cards never do; they get their edge from tone and the inset hairline.",
+        "body": "Only things that float over the page (the nav pill, its menu, the glossary bubble), the controls laid over a picture (the Pause button, the play badge) and the photo cast a soft shadow. Cards never do, not even on hover; they get their edge from tone and the inset hairline.",
         "section": "elevation"
       },
       {
         "name": "The One Radius Rule",
-        "body": "Every card, panel, photo, screenshot and tooltip uses `rounded-card` (1.25rem). Buttons, filter buttons, nav links, tags and skill chips are pills (`rounded-full`). Smaller fixed shapes: icon tiles 12px, the key-result highlight 6px, chart bar tips 4px. Circles carry meaning in diagrams: filled ink dots are his steps, outlined dots the team's, petri dishes are circles with an inner rim. Lines are 2px in ink at 50 to 60%.",
+        "body": "Every card, panel, photo, screenshot and tooltip uses `rounded-card` (1.25rem). Buttons, filter buttons, nav links, tags and skill chips are pills (`rounded-full`). Smaller fixed shapes: icon tiles 12px, the key-result highlight 6px, chart bar tips 4px. Circles carry meaning in diagrams: filled ink dots are the owner's steps, outlined dots the team's. Lines are 2px in ink at 50 to 60%.",
         "section": "shapes"
+      },
+      {
+        "name": "The Evidence Rule",
+        "body": "A project's main visual shows the work: a screenshot, a recording, a chart of approved numbers or a how-it-works diagram. A logo names the client but is not evidence, so it is never a project's main visual (the owner's rule, 2026-10-18). Client logos appear only small, in the text colour, beside the client's name (`ClientLogo.tsx`).",
+        "section": "components"
       }
     ],
     "dos": [
       "Do use the semantic colour names so a block works in both themes without extra code, and check new values against The Contrast Pairs Rule on page, band and surface.",
       "Do open every new section with `Section.tsx`: heading, one intro sentence in `src/data/site.ts`, and the next tone in the page/band alternation.",
-      "Do give every project its serif title, then its key result, then one or two sentences; put the rest behind Read more.",
+      "Do give every project its serif title, then its key result, then one or two sentences; put the rest behind Read more or on its project page.",
+      "Do lead a project with evidence of the work; show the client's logo only small, in the text colour, beside the client's name.",
       "Do keep body text left-aligned in `max-w-measure`, and mark key words with `**` and jargon with `[[ ]]` in the data files.",
       "Do put new motion in `src/index.css` inside the reduced-motion media query, and animate in the direction the data flows.",
       "Do draw his own work as filled nodes and the team's as outlined nodes, with the legend and spoken labels; give every chart a hidden table.",
@@ -582,7 +608,8 @@
       "Don't let a key result or anything else in a project grow larger than its title.",
       "Don't write more than one or two sentences on a card or row.",
       "Don't set a colour with a raw hex in a component; add or reuse a token in `src/index.css`.",
-      "Don't plot numbers that are not approved, or put two different tests in one chart."
+      "Don't plot numbers that are not approved, or put two different tests in one chart.",
+      "Don't make a logo a project's main visual, or show it in its own colours."
     ]
   }
 }

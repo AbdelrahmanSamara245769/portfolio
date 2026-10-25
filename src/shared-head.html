@@ -1,0 +1,38 @@
+<!--
+  The start of every page's <head>, written in where each page's HTML says
+  shared-head (the plugin in vite.config.ts does this), so all pages share one copy.
+-->
+<!--
+  The browser's own toolbar colour on phones: sage for the light theme and
+  near-black green for the dark one, following the device setting. Keep both
+  in step with --page in src/index.css. Once a theme is picked, the script
+  below and ThemeToggle.tsx give both lines that theme's colour, so the
+  toolbar matches the page even when it differs from the device setting.
+-->
+<meta name="theme-color" content="#e5ece4" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0a130f" media="(prefers-color-scheme: dark)" />
+<script>
+  // Picks the colour theme before the page draws, so it never flashes the
+  // wrong one. A ?theme=dark or ?theme=light address wins (handy for
+  // comparing the two side by side), then the visitor's last choice, then
+  // their device setting.
+  ;(function () {
+    var theme = new URLSearchParams(location.search).get('theme')
+    if (theme !== 'light' && theme !== 'dark') {
+      try {
+        theme = localStorage.getItem('theme')
+      } catch (error) {
+        theme = null
+      }
+    }
+    if (theme !== 'light' && theme !== 'dark') {
+      theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
+    document.documentElement.dataset.theme = theme
+    var colour = theme === 'dark' ? '#0a130f' : '#e5ece4'
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) {
+      meta.content = colour
+    })
+  })()
+</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />

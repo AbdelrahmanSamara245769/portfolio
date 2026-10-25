@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from 'react'
 import type { MainProject } from '../data/projects'
+import { fillsCard } from '../lib/visuals'
 import CodeLink from './CodeLink'
 import PipelineSteps from './PipelineSteps'
 import KeyResult from './KeyResult'
@@ -12,10 +13,6 @@ type ProjectRowProps = {
   project: MainProject
   // Which side the visual sits on from md up. The rows alternate.
   visualSide: 'left' | 'right'
-  // A story stage, shown as the first tag (Prototype or Production).
-  stage?: string
-  // The featured project gets the larger visual, with a sample running through it.
-  featured?: boolean
   // Set after a filter change, so the row rises in; style passes its place (--i).
   animate?: boolean
   style?: CSSProperties
@@ -28,7 +25,7 @@ type ProjectRowProps = {
 //
 // The text comes first in the code, so screen readers and keyboards meet the
 // title before the picture; the order classes put the visual first on screen.
-function ProjectRow({ project, visualSide, stage, featured = false, animate = false, style }: ProjectRowProps) {
+function ProjectRow({ project, visualSide, animate = false, style }: ProjectRowProps) {
   // isOpen records whether the Read more panel is open. Each row keeps its own value.
   const [isOpen, setIsOpen] = useState(false)
   const titleId = `${project.id}-title`
@@ -41,8 +38,7 @@ function ProjectRow({ project, visualSide, stage, featured = false, animate = fa
       style={style}
       className={`grid gap-8 md:grid-cols-12 md:items-center md:gap-x-12 md:gap-y-0 ${animate ? 'filter-in' : ''}`}
     >
-      {/* The featured project's visual takes seven of twelve columns, the others six. */}
-      <div className={featured ? 'md:col-span-5' : 'md:col-span-6'}>
+      <div className="md:col-span-6">
         <h3 id={titleId} className="role-heading text-project">
           {project.title}
         </h3>
@@ -58,7 +54,7 @@ function ProjectRow({ project, visualSide, stage, featured = false, animate = fa
           <ProjectFacts project={project} />
         </div>
         <div className="mt-4">
-          <ProjectTags project={project} stage={stage} />
+          <ProjectTags project={project} />
         </div>
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
           <ReadMoreButton panelId={panelId} title={project.title} isOpen={isOpen} onToggle={() => setIsOpen((open) => !open)} />
@@ -67,9 +63,9 @@ function ProjectRow({ project, visualSide, stage, featured = false, animate = fa
       </div>
 
       <div
-        className={`card order-first p-5 sm:p-7 ${featured ? 'md:col-span-7' : 'md:col-span-6'} ${visualSide === 'left' ? 'md:order-first' : 'md:order-none'}`}
+        className={`card order-first overflow-hidden ${fillsCard(project.visual) ? '' : 'p-5 sm:p-7'} md:col-span-6 ${visualSide === 'left' ? 'md:order-first' : 'md:order-none'}`}
       >
-        <ProjectVisual visual={project.visual} sample={featured} />
+        <ProjectVisual visual={project.visual} />
       </div>
 
       {/* The panel's text stays in the page when closed, so search engines still

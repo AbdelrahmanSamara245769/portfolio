@@ -4,14 +4,16 @@ import { useActiveSection } from '../lib/useActiveSection'
 import { MenuIcon } from './icons'
 import ThemeToggle from './ThemeToggle'
 
+// The links go to /#about and so on, so they also work from a project's own
+// page: there they open the main page at that section.
 const links = [
-  { href: '#about', label: 'About' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#contact', label: 'Contact' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' },
 ]
 
-const sectionIds = links.map((link) => link.href.slice(1))
+const sectionIds = links.map((link) => link.id)
 
 // The navigation floats near the top of the window as a pill and stays there
 // while the page scrolls, so "Email me", the page's main action and its only
@@ -19,9 +21,10 @@ const sectionIds = links.map((link) => link.href.slice(1))
 // is marked in its link (aria-current tells screen readers the same).
 //
 // On phones the four section links fold into a Menu button; the name, the
-// theme switch and Email me stay in the pill.
-function SiteHeader() {
-  const active = useActiveSection(sectionIds)
+// theme switch and Email me stay in the pill. A project's page passes
+// current="projects", so Projects is marked there.
+function SiteHeader({ current }: { current?: string }) {
+  const active = useActiveSection(sectionIds) ?? current
   const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef<HTMLElement>(null)
 
@@ -42,9 +45,9 @@ function SiteHeader() {
     }
   }, [menuOpen])
 
-  const linkClass = (href: string) =>
+  const linkClass = (id: string) =>
     `inline-flex min-h-11 items-center rounded-full px-3.5 text-meta font-semibold transition-[color,background-color] duration-200 hover:text-accent-text motion-reduce:transition-none ${
-      active === href.slice(1) ? 'bg-accent-tint text-accent-text' : ''
+      active === id ? 'bg-accent-tint text-accent-text' : ''
     }`
 
   return (
@@ -65,7 +68,7 @@ function SiteHeader() {
         aria-label="Sections"
         className="pointer-events-auto relative mx-auto flex max-w-4xl items-center gap-1 rounded-full bg-surface/90 py-1.5 pr-1.5 pl-4 shadow-[0_10px_30px_-14px_rgb(10_19_15/0.45)] ring-1 ring-ink/10 backdrop-blur-md"
       >
-        <a href="#top" className="role-title mr-auto inline-flex min-h-11 items-center text-base">
+        <a href="/#top" className="role-title mr-auto inline-flex min-h-11 items-center text-base">
           {/* Phones show a shorter name, so Email me and the menu still fit. */}
           <span className="sm:hidden">A. Samara</span>
           <span className="max-sm:hidden">{profile.name}</span>
@@ -73,8 +76,8 @@ function SiteHeader() {
 
         <ul className="hidden items-center md:flex">
           {links.map((link) => (
-            <li key={link.href}>
-              <a href={link.href} aria-current={active === link.href.slice(1) ? 'true' : undefined} className={linkClass(link.href)}>
+            <li key={link.id}>
+              <a href={`/#${link.id}`} aria-current={active === link.id ? 'true' : undefined} className={linkClass(link.id)}>
                 {link.label}
               </a>
             </li>
@@ -107,12 +110,12 @@ function SiteHeader() {
           className="card absolute top-full right-0 mt-2 w-52 p-2 shadow-[0_10px_30px_-14px_rgb(10_19_15/0.45)] md:hidden"
         >
           {links.map((link) => (
-            <li key={link.href}>
+            <li key={link.id}>
               <a
-                href={link.href}
+                href={`/#${link.id}`}
                 onClick={() => setMenuOpen(false)}
-                aria-current={active === link.href.slice(1) ? 'true' : undefined}
-                className={`w-full ${linkClass(link.href)}`}
+                aria-current={active === link.id ? 'true' : undefined}
+                className={`w-full ${linkClass(link.id)}`}
               >
                 {link.label}
               </a>

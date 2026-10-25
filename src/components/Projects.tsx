@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { categoryLabels, npecStory, projects, type Category } from '../data/projects'
+import { categoryLabels, npecStory, projects, type Category, type MainProject, type ProjectPage } from '../data/projects'
 import { sections } from '../data/site'
+import FeatureCard from './FeatureCard'
 import ProjectCard from './ProjectCard'
 import ProjectRow from './ProjectRow'
 import ProjectStory from './ProjectStory'
@@ -17,9 +18,13 @@ const filters: { value: Filter; label: string }[] = [
   ...(Object.keys(categoryLabels) as Category[]).map((value) => ({ value, label: categoryLabels[value] })),
 ]
 
-// The projects section: filter buttons, then the main projects as alternating
-// rows (opening with the NPEC story), then the smaller projects as a grid of
-// cards. A filter shows only the projects in its area; All shows everything.
+// A main project together with its page, for the ones that have one.
+type WithPage = { project: MainProject; page: ProjectPage }
+
+// The projects section, in three parts: the two NPEC projects as large cards
+// that open their own pages, then the other main projects as rows with Read
+// more, then the smaller projects as a grid of cards. A filter shows only the
+// projects in its area; All shows everything.
 function Projects() {
   const [filter, setFilter] = useState<Filter>('all')
   // Projects only rise in after a filter change, not when the page first opens.
@@ -29,13 +34,17 @@ function Projects() {
   const shownMain = mainProjects.filter((project) => matches(project.categories))
   const shownSmall = smallProjects.filter((project) => matches(project.categories))
 
-  // The NPEC story shows as one piece only when both of its projects are shown;
-  // otherwise whichever of them is shown takes its place as an ordinary row.
-  // find() returns undefined when an id isn't among the shown projects.
-  const prototype = shownMain.find((project) => project.id === npecStory.prototypeId)
-  const production = shownMain.find((project) => project.id === npecStory.productionId)
-  const hasStory = prototype !== undefined && production !== undefined
-  const rows = hasStory ? shownMain.filter((project) => project !== prototype && project !== production) : shownMain
+  // Projects with a page become cards; the rest stay rows.
+  const withPages: WithPage[] = shownMain.flatMap((project) => (project.page ? [{ project, page: project.page }] : []))
+  const rows = shownMain.filter((project) => !project.page)
+
+  // The NPEC story shows as a pair only when both of its projects are shown;
+  // otherwise whichever is shown stands as a single card. find() returns
+  // undefined when an id isn't among them.
+  const prototype = withPages.find((item) => item.project.id === npecStory.prototypeId)
+  const production = withPages.find((item) => item.project.id === npecStory.productionId)
+  const pair = prototype && production ? { prototype, production } : undefined
+  const singles = pair ? withPages.filter((item) => item !== prototype && item !== production) : withPages
   const count = shownMain.length + shownSmall.length
 
   function choose(value: Filter) {
@@ -53,7 +62,7 @@ function Projects() {
             type="button"
             aria-pressed={filter === option.value}
             onClick={() => choose(option.value)}
-            className={`inline-flex min-h-11 items-center rounded-full px-4 text-meta sm:px-5 font-semibold transition-[color,background-color] duration-200 motion-reduce:transition-none ${
+            className={`inline-flex min-h-11 items-center rounded-full px-4 text-meta font-semibold transition-[color,background-color] duration-200 motion-reduce:transition-none sm:px-5 ${
               filter === option.value ? 'bg-accent text-on-accent' : 'card hover:text-accent-text'
             }`}
           >
@@ -67,13 +76,21 @@ function Projects() {
       </p>
 
       {/* key={filter} draws the lists afresh for each filter, so the rise-in plays again. */}
-      <div key={filter} className="mt-14 space-y-24 md:mt-20 md:space-y-32">
-        {hasStory && <ProjectStory prototype={prototype} production={production} />}
+      <div key={filter} className="mt-14 space-y-28 md:mt-20 md:space-y-36">
+        {pair && <ProjectStory prototype={pair.prototype} production={pair.production} animate={hasFiltered} />}
+        {singles.length > 0 && (
+          <div className="grid gap-10 lg:grid-cols-2">
+            {singles.map((item, index) => (
+              <FeatureCard key={item.project.id} project={item.project} page={item.page} stage={item.project.id === npecStory.prototypeId ? 'Prototype' : 'Production'} animate={hasFiltered} style={{ '--i': index }} />
+            ))}
+          </div>
+        )}
+
         {rows.map((project, index) => (
           <ProjectRow
             key={project.id}
             project={project}
-            // The story's rows are left then right, so the next row starts on the left again.
+            // The rows alternate: visual on the left, then on the right.
             visualSide={index % 2 === 0 ? 'left' : 'right'}
             animate={hasFiltered}
             style={{ '--i': index }}

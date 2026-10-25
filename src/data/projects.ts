@@ -71,22 +71,71 @@ export type BranchesVisual = {
   caption?: string
 }
 
-// A test drawn as petri dishes seen from above: one root tip per plant in
-// each dish, each tip marked as it is hit. It shows the shape of a real test
-// (how many dishes, how many tips) without inventing positions.
-export type DishesVisual = {
-  type: 'dishes'
-  dishes: number
-  tipsPerDish: number
-  // What screen readers hear instead of the drawing.
-  description: string
+// A short silent recording that loops, such as a simulation run, as a WebM and
+// an MP4 video (browsers use the first they can play). still is one frame of it
+// as an image: it shows until the video loads, and instead of it for visitors
+// who asked their device for less motion. width and height are the video's size.
+export type AnimationVisual = {
+  type: 'animation'
+  webm: string
+  mp4: string
+  still: string
+  alt: string
+  width: number
+  height: number
   // A short line under the visual. Leave it out when the visual explains itself.
   caption?: string
 }
 
-// What leads a project: a screenshot, a chart of real numbers, or a diagram of
-// how it works. type tells the shapes apart, like kind does for projects.
-export type ProjectVisual = ImageVisual | BarsVisual | FlowVisual | BranchesVisual | DishesVisual
+// What leads a project: a screenshot or recording of the real work, a chart of
+// real numbers, or a diagram of how it works. type tells the shapes apart, like
+// kind does for projects. A logo is never a project's visual: it names the
+// client, it isn't evidence of the work.
+export type ProjectVisual = ImageVisual | AnimationVisual | BarsVisual | FlowVisual | BranchesVisual
+
+// A client's logo, shown small beside the client's name in the ink colour (see
+// ClientLogo.tsx). Only the file's shape is used, so it needs a transparent
+// background. width and height give its proportions.
+export type Logo = {
+  src: string
+  width: number
+  height: number
+}
+
+// One picture or video in a project page's gallery. The first one leads the
+// page, large, under its header; the others form the gallery further down, and
+// the larger view steps through all of them. width and height are the file's
+// real size, so the browser can keep the space before it arrives.
+export type GalleryImage = {
+  kind: 'image'
+  src: string
+  alt: string
+  width: number
+  height: number
+  caption: string
+}
+
+export type GalleryVideo = {
+  kind: 'video'
+  webm: string
+  mp4: string
+  // A frame of the video, shown until it plays and as its thumbnail.
+  poster: string
+  alt: string
+  width: number
+  height: number
+  caption: string
+}
+
+export type GalleryItem = GalleryImage | GalleryVideo
+
+// A main project with a page of its own. Its address is /projects/ plus the
+// slug, and each slug needs a matching HTML file in the projects folder at the
+// top of the repository (see README).
+export type ProjectPage = {
+  slug: string
+  gallery: GalleryItem[]
+}
 
 // The filter buttons above the projects. A project can be in more than one.
 export type Category = 'ml' | 'data' | 'software'
@@ -134,6 +183,8 @@ export type MainProject = ProjectBase & {
   team: string
   role?: string
   details: ProjectDetails
+  // A project with a page opens it from a card; one without opens Read more.
+  page?: ProjectPage
 }
 
 export type SmallProject = ProjectBase & {
@@ -147,6 +198,17 @@ export type Project = MainProject | SmallProject
 
 // My public repositories all live under one GitHub account.
 const repo = (name: string) => `https://github.com/AbdelrahmanSamara245769/${name}`
+
+// The clients' logos, from their own websites: NPEC's plant symbol (its site
+// icon) and Content Intelligence Agency's mark. The keys are the client names
+// exactly as the projects below write them.
+export const clientLogos: Record<string, Logo> = {
+  NPEC: { src: '/logos/npec-symbol.png', width: 197, height: 263 },
+  'Content Intelligence Agency': { src: '/logos/cia-mark.svg', width: 724, height: 391 },
+}
+
+// The address of a project's page.
+export const projectUrl = (page: ProjectPage) => `/projects/${page.slug}`
 
 // The two NPEC projects are one story: the root detection prototype grew into the
 // production platform. The page shows them first, together and in this order,
@@ -175,11 +237,53 @@ export const projects: Project[] = [
     codeUrl: repo('root-detection-robotics'),
     categories: ['ml', 'software'],
     visual: {
-      type: 'dishes',
-      dishes: 3,
-      tipsPerDish: 5,
-      description: 'In each dish, all five root tips are marked as inoculated.',
-      caption: 'The full-system test: three dishes, five plants each.',
+      type: 'animation',
+      webm: '/projects/root-detection/robot-inoculation.webm',
+      mp4: '/projects/root-detection/robot-inoculation.mp4',
+      still: '/projects/root-detection/robot-inoculation-still.webp',
+      alt: 'A simulated pipette robot moving over a petri dish and dropping a red droplet on each root tip in turn.',
+      width: 960,
+      height: 720,
+      caption: 'The simulated robot inoculating the root tips on one of the three test dishes.',
+    },
+    page: {
+      slug: 'root-detection',
+      gallery: [
+        {
+          kind: 'video',
+          webm: '/projects/root-detection/robot-inoculation.webm',
+          mp4: '/projects/root-detection/robot-inoculation.mp4',
+          poster: '/projects/root-detection/robot-inoculation-still.webp',
+          alt: 'A simulated pipette robot moving over a petri dish and dropping a red droplet on each root tip in turn.',
+          width: 960,
+          height: 720,
+          caption: 'The simulated robot inoculating the five root tips on one of the three test dishes, steered by the PID controller.',
+        },
+        {
+          kind: 'image',
+          src: '/projects/root-detection/overlay.webp',
+          alt: 'A petri dish of three seedlings with the roots the model found drawn over them in red.',
+          width: 1159,
+          height: 1159,
+          caption: 'The roots my U-Net found, drawn in red over a test dish.',
+        },
+        {
+          kind: 'image',
+          src: '/projects/root-detection/before-after.webp',
+          alt: 'On the left, a petri dish of three seedlings; on the right, the same root systems as a white mask on black.',
+          width: 1600,
+          height: 784,
+          caption: 'A cropped dish, and the root system the model predicts from it.',
+        },
+        {
+          kind: 'image',
+          src: '/projects/root-detection/root-tips.webp',
+          alt: 'Five lanes, one per plant, each showing the main root traced in red and its tip circled in green, with the tip’s pixel position above.',
+          width: 1600,
+          height: 671,
+          caption: 'The dish in the recording: each plant’s main root, and the tip the robot was sent to.',
+        },
+      ],
     },
     details: {
       problem:
@@ -222,14 +326,48 @@ export const projects: Project[] = [
     codeUrl: repo('plant-root-analysis-platform'),
     categories: ['ml', 'software'],
     visual: {
-      type: 'flow',
-      steps: [
-        { label: 'Scan uploaded in the web app', mine: false },
-        { label: 'Image pipeline finds the root tips', mine: true },
-        { label: 'API returns the tip positions', mine: false },
-        { label: 'Feedback and drift checks', mine: false },
-        { label: 'Azure ML training pipeline', mine: true },
-        { label: 'CI/CD and canary rollout', mine: true },
+      type: 'image',
+      src: '/projects/plant-root-analysis-platform/app.webp',
+      alt: 'The prediction view of the web app: an NPEC petri dish scan with four root tips circled and numbered by lane, a list of each tip’s position and confidence, and below it a feedback form where a user can confirm or correct each tip.',
+      width: 1100,
+      height: 1316,
+      caption: 'The team’s deployed web app, showing the root tips my image pipeline found in an NPEC scan, with the feedback form that feeds retraining.',
+    },
+    page: {
+      slug: 'plant-root-analysis-platform',
+      gallery: [
+        {
+          kind: 'image',
+          src: '/projects/plant-root-analysis-platform/app.webp',
+          alt: 'The prediction view of the web app: an NPEC petri dish scan with four root tips circled and numbered by lane, a list of each tip’s position and confidence, and below it a feedback form where a user can confirm or correct each tip.',
+          width: 1100,
+          height: 1316,
+          caption: 'The team’s deployed web app, showing the root tips my image pipeline found in an NPEC scan, with the feedback form that feeds retraining.',
+        },
+        {
+          kind: 'image',
+          src: '/projects/plant-root-analysis-platform/training-pipeline.webp',
+          alt: 'An Azure Machine Learning pipeline graph: two data inputs feed a preprocess step, then train, evaluate and register steps, which output the prepared data, the trained model, metrics, overlays and a registration decision.',
+          width: 848,
+          height: 786,
+          caption: 'The training pipeline I built in Azure ML: preprocess, train, evaluate and register, each a separate component.',
+        },
+        {
+          kind: 'image',
+          src: '/projects/plant-root-analysis-platform/sweep.webp',
+          alt: 'A parallel coordinates chart with one line per trial, crossing axes for learning rate, batch size, augmentation strength and validation F1.',
+          width: 706,
+          height: 428,
+          caption: 'A hyperparameter sweep in Azure ML: each line is one trial’s learning rate, batch size and augmentation strength, compared by validation F1.',
+        },
+        {
+          kind: 'image',
+          src: '/projects/plant-root-analysis-platform/tests.webp',
+          alt: 'A GitHub Actions summary with the lint and test jobs passing, beside a unit test report that lists each test file and totals 242 passed tests.',
+          width: 912,
+          height: 568,
+          caption: 'The report my CI posts on every pull request: lint and tests passing, 242 tests in all.',
+        },
       ],
     },
     details: {
@@ -274,15 +412,13 @@ export const projects: Project[] = [
     codeUrl: repo('tv-emotion-detection'),
     categories: ['ml', 'data'],
     visual: {
-      type: 'bars',
-      labelHeading: 'Service',
-      valueHeading: 'Word error rate on 180 hand-checked lines (lower is better)',
-      scaleMax: 6,
-      bars: [
-        { label: 'AssemblyAI', value: 3.84, valueLabel: '3.84%', emphasis: true },
-        { label: 'Whisper (small)', value: 5.02, valueLabel: '5.02%' },
+      type: 'flow',
+      steps: [
+        { label: 'AssemblyAI transcribes the episode', mine: true },
+        { label: 'Translation model: English to Dutch and back', mine: true },
+        { label: 'RoBERTa-Large labels each sentence’s emotion', mine: false },
+        { label: 'Transcript with an emotion on every sentence', mine: false },
       ],
-      caption: 'My speech-to-text comparison.',
     },
     details: {
       problem:

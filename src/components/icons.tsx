@@ -43,6 +43,58 @@ export function CheckIcon() {
   )
 }
 
+// The animation's Pause and Play button.
+export function PauseIcon() {
+  return (
+    <svg {...iconProps}>
+      <path d="M9 5.5v13M15 5.5v13" />
+    </svg>
+  )
+}
+
+export function PlayIcon() {
+  return (
+    <svg {...iconProps}>
+      <path d="M8 5.5v13l10.5-6.5z" />
+    </svg>
+  )
+}
+
+// An arrow pointing right. className turns or moves it, for example
+// rotate-180 to point back, or a nudge on hover.
+export function ArrowIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg {...iconProps} className={`size-5 shrink-0 ${className}`}>
+      <path d="M4.5 12h15M14 6.5l5.5 5.5-5.5 5.5" />
+    </svg>
+  )
+}
+
+// The gallery's larger view: open it, close it, and step back and forward.
+export function ExpandIcon() {
+  return (
+    <svg {...iconProps}>
+      <path d="M14.5 4.5h5v5M9.5 19.5h-5v-5M19.5 4.5l-6 6M4.5 19.5l6-6" />
+    </svg>
+  )
+}
+
+export function CloseIcon() {
+  return (
+    <svg {...iconProps}>
+      <path d="M6 6l12 12M18 6 6 18" />
+    </svg>
+  )
+}
+
+export function StepIcon({ direction }: { direction: 'back' | 'forward' }) {
+  return (
+    <svg {...iconProps} className={`size-6 shrink-0 ${direction === 'back' ? 'rotate-180' : ''}`}>
+      <path d="m9 5.5 6.5 6.5L9 18.5" />
+    </svg>
+  )
+}
+
 export function CodeIcon() {
   return (
     <svg {...iconProps}>

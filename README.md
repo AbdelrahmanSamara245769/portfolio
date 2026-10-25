@@ -13,15 +13,15 @@ My one-page portfolio as an Applied Data Science and AI student. It shows what I
 
 ## The idea
 
-The page is built for recruiters and engineers who skim. The top section says who I am, what internship I'm looking for and when, and puts my email address first, with a Copy button for anyone without a mail app. Every section opens with a centred heading and one short sentence, and every project leads with evidence: its title, then its key result as a short highlighted line (with the number first where there is one), and a visual of real work. That visual is a screenshot, a small chart of real numbers, or a diagram of how the project works, where filled nodes mark the parts I built and outlined nodes the team's. The details sit behind each project's Read more button, result first, next to a link to the project's code on GitHub.
+The page is built for recruiters and engineers who skim. The top section says who I am, what internship I'm looking for and when, and puts my email address first, with a Copy button for anyone without a mail app. Every section opens with a centred heading and one short sentence, and every project leads with evidence: its title, then its key result as a short highlighted line (with the number first where there is one), and a visual of real work. That visual is a screenshot or recording of the real work, such as the deployed platform app or the simulated robot inoculating root tips, or a diagram of how the project works, where filled nodes mark the parts I built and outlined nodes the team's. A client's logo is never the visual: it appears small, in one colour, beside the client's name.
 
-Filter buttons above the projects show only ML engineering, Data or Software work. The main projects are rows that alternate the visual left and right, and they open with one story: my solo root detection prototype for NPEC, then the platform that took it to production, joined by a short card between the two. The smaller projects sit in an even grid of cards, and the skills in one card per area.
+Filter buttons above the projects show only ML engineering, Data or Software work. The projects open with one story: my solo root detection prototype for NPEC and the platform that took it to production, as two large cards joined by a small arrow. Each card opens the project's own page, with the problem, what I built, how it works, the results and a gallery that opens a larger view. The other main projects follow as rows with a Read more button, then the smaller projects as an even grid of cards. The skills sit in one card per area.
 
 In the summaries, results and What I built lists, the key words are bold and darker than the rest, so a skimming reader picks them out first.
 
 ### Motion
 
-The page has one main moment: when it opens, my photo is scanned in from top to bottom like a petri dish on a lab scanner, and my name inks in. After that, lines move the way data flows: charts grow from their baseline and diagrams draw from step to step the first time they scroll into view, the robot inoculates the 15 root tips of the three test dishes one by one, a sample travels through the platform's pipeline (and again when you point at it), the skill tags slide into their cards, and the line between the two NPEC projects grows as you scroll. Visitors who turn on reduced motion in their system settings see the finished page straight away, with nothing moving.
+The page has one main moment: when it opens, my photo is scanned in from top to bottom like a petri dish on a lab scanner, and my name inks in. After that, lines move the way data flows: charts grow from their baseline and diagrams draw from step to step the first time they scroll into view, the skill tags slide into their cards, and the arrow between the two NPEC projects draws itself. The recording of the robot inoculating root tips loops while it is in view, with a Pause button. Visitors who turn on reduced motion in their system settings see the finished page straight away, with nothing moving: the robot recording starts on its last frame, with a Play button.
 
 ### Colours and themes
 
@@ -82,7 +82,9 @@ To give a technical term a plain-language explanation, put it in double square b
 
 A visual's `caption` is optional: leave it out when the visual explains itself. Each project's skills are listed inside its Read more panel.
 
-`npecStory` at the top of `projects.ts` joins the two NPEC projects into one story: it names the prototype and the production project by their ids, and holds the sentence shown between them. If an id doesn't match, the page simply shows both projects on their own.
+`npecStory` at the top of `projects.ts` joins the two NPEC projects into one story: it names the prototype and the production project by their ids, and holds the sentence the prototype's page ends on. If an id doesn't match, the page simply shows both projects on their own.
+
+A client's logo shows small beside the client's name. Add the file to `public/logos/` (an SVG, or a PNG with a transparent background, since only its shape is used) and add it to `clientLogos` at the top of `projects.ts`, under the client's name exactly as the projects write it.
 
 To add a smaller project, copy an existing `kind: 'small'` entry in `projects.ts` and change its text:
 
@@ -112,10 +114,17 @@ To add a smaller project, copy an existing `kind: 'small'` entry in `projects.ts
 A visual can be one of five types:
 
 - **`image`:** a screenshot. Put the file in `public/projects/`, set `src` to its path (for example `/projects/my-screenshot.webp`), and give its real `width` and `height` in pixels plus an `alt` text that says what it shows.
+- **`animation`:** a short silent recording that loops, as a WebM and an MP4 video in `public/projects/`. Set `webm`, `mp4`, a `still` image of one frame (shown until the video loads, and instead of it for visitors who asked for less motion), the video's `width` and `height`, and an `alt` text. It only loads once it is near the window, and pauses when it leaves.
 - **`bars`:** a small bar chart of real results, drawn as a table so screen readers can read it.
 - **`flow`:** steps from start to finish. Set `mine: false` on teammates' steps and a legend appears.
 - **`branches`:** one starting point that splits into parallel questions.
-- **`dishes`:** a test drawn as petri dishes seen from above, with one root tip per plant, each marked as the robot hits it. Set `dishes`, `tipsPerDish`, a `description` for screen readers and a `caption`.
+
+A main project can also have a page of its own. Give it a `page` with a `slug` (the address after `/projects/`) and a `gallery`: a list of pictures (`kind: 'image'`) and videos (`kind: 'video'`), each with its file, `alt` text, real `width` and `height`, and a `caption`. The first item leads the page; the rest form the gallery near its end. Then:
+
+1. Copy one of the files in the `projects` folder (for example `projects/root-detection.html`), name it after the slug, and change its title, descriptions, address and `data-project` (the project's `id`).
+2. Add the new file to `input` in `vite.config.ts`, so the build makes the page.
+
+The project then shows as a large card that opens its page, instead of a row with Read more. The page's address works when it is opened directly or reloaded, because each page is a real HTML file (on Vercel, `cleanUrls` in `vercel.json` serves `/projects/x` from `x.html`).
 
 To change the photo, save it as `public/profile.jpeg`, or point `photoPath` in `profile.ts` at another file in `public/` and set `photoSize` to its width in pixels (the photo is shown square). If the file is missing, the page simply leaves the photo out.
 
@@ -124,17 +133,22 @@ To replace the CV, save the new PDF as `public/Abdelrahman_Samara_CV.pdf` and up
 ## How the code is organised
 
 ```
-index.html                  the single HTML page; React draws into <div id="root">
+index.html                  the main page; React draws into <div id="root">
+projects/                   one HTML page per project page; data-project names the project
 public/                     files served as they are: the CV, the photo, the favicon,
-                            the link-preview image and the 404 page
+                            project screenshots and recordings (projects/), client
+                            logos (logos/), the link-preview image and the 404 page
 docs/preview.png            the screenshot at the top of this README
 src/
-  main.tsx                  starting point: loads the fonts and styles, renders <App />
+  main.tsx                  starting point: loads the fonts and styles, renders <App />,
+                            or a project's page when the HTML names one
+  shared-head.html          the start of every page's <head>: theme script, toolbar colours, icon
   App.tsx                   the page layout, section by section
   index.css                 Tailwind, the colour tokens for both themes, the type sizes and all the motion
   data/                     the project, profile and skills text (see above)
   lib/text.ts               keeps numbers with their units, and names like Grad-CAM, on one line
   lib/useInView.ts          a custom hook that tells a chart when it has scrolled into view
+  lib/visuals.ts            which visuals fill their card to its edges
   lib/useActiveSection.ts   a custom hook that tells the navigation which section you are reading
   css-variables.d.ts        tells TypeScript about the --i, --c and --d style values the animations use
   components/
@@ -150,18 +164,25 @@ src/
     About.tsx               the About paragraph and facts
     Section.tsx             shared section frame: its tone, centred heading and intro
     Projects.tsx            the filter buttons, the NPEC story, the other rows and the cards
-    ProjectStory.tsx        the two NPEC projects as one story, prototype to production
+    ProjectStory.tsx        the two NPEC cards and the arrow between them
+    FeatureCard.tsx         a project with its own page, as a large card that opens it
     ProjectRow.tsx          a main project as one row, its visual on the left or right
     ProjectCard.tsx         a smaller project as a card in the grid
     KeyResult.tsx           a project's highlighted key result
     ReadMore.tsx            the Read more button and the panel it unfolds
     CodeLink.tsx            the View code link to a project's repository
-    ProjectVisual.tsx       picks the right visual: image, chart or diagram
-    BarChart.tsx, FlowDiagram.tsx, BranchDiagram.tsx, DishesDiagram.tsx
-    PipelineSteps.tsx       the "How it works" steps inside Read more
+    ProjectVisual.tsx       picks the right visual: image, animation, chart or diagram
+    Recording.tsx           the looping recording and its Pause and Play button
+    ClientLogo.tsx          a client's logo, small and in one colour, beside its name
+    ProjectPage.tsx         a project's own page: header, sections, gallery, links on
+    Gallery.tsx             the page's gallery, each picture at its own shape
+    Lightbox.tsx            the larger view: arrow keys, swipe, Escape and focus handled
+    BarChart.tsx, FlowDiagram.tsx, BranchDiagram.tsx
+    PipelineSteps.tsx       the "How it works" steps, in Read more and on project pages
     ProjectFacts.tsx, Fact.tsx, InlineList.tsx
     Skills.tsx, Contact.tsx, SiteFooter.tsx, icons.tsx, linkStyles.ts
-vercel.json                 asks search engines not to index the CV PDF
+vercel.json                 serves project pages at clean addresses, and asks search
+                            engines not to index the CV PDF
 ```
 
 ## Deploy to Vercel
@@ -194,4 +215,4 @@ Every later push to `main` deploys the site again automatically. Any address tha
 - Links that point at a section, such as `/#contact`, open at that section.
 - Checked with axe-core at 320, 390, 768, 1024 and 1440 px wide in both themes, with and without the panels open.
 
-The three images that ship with the site (the photo and the two preview images) record where they come from inside the file. The impeccable skill's `embed-prompt --read <image>` shows it.
+The images that ship with the site record where they come from: the photo, the two preview images and the NPEC logo inside the file, and the project images and videos in a `.json` file beside each one. The robot recording is a re-render of my own simulation run, and the app screenshot joins two screenshots of the same page. The gallery images are my own notebook figures and screenshots, cropped, with internal names and the platform's scores blurred. The impeccable skill's `embed-prompt --read <image>` shows it. The client logos come from each client's own website, and the project images from my own project repositories.

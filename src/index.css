@@ -213,6 +213,10 @@
     outline-offset: 3px;
   }
 
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
   ::selection {
     background-color: var(--accent);
     color: var(--on-accent);
@@ -271,16 +275,32 @@
   /*
     A card: a little lighter than whatever it sits on, with the shared corner
     radius and a faint edge, so cards read as cards on the page and on a band.
+    The edge is ink at --card-edge (9%). A card that is a link raises it on
+    hover instead of casting a shadow, since cards never cast one.
   */
   .card {
     border-radius: var(--radius-card);
     background-color: var(--surface);
-    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--ink) 9%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--ink) var(--card-edge, 9%), transparent);
   }
 
-  /* The Copy button's tick. pathLength="1" in icons.tsx makes one dash exactly its length. */
-  .draw-tick {
+  /*
+    The Copy button's tick and the arrow between the two NPEC cards.
+    pathLength="1" on each path makes one dash exactly its length, so moving
+    the dash's offset from 1 to 0 draws the line from start to end.
+  */
+  .draw-tick,
+  .draw-arrow {
     stroke-dasharray: 1;
+  }
+
+  /*
+    The gallery's larger view (Lightbox.tsx): the page behind it darkens, and
+    stays still while it is open. The colour is written out because a dialog's
+    backdrop doesn't take the page's colour variables in every browser.
+  */
+  .lightbox::backdrop {
+    background-color: rgb(6 11 9 / 0.95);
   }
 
   /* The scan line that passes over the photo. It is invisible unless animated. */
@@ -304,9 +324,9 @@
    top to bottom and the name inks in. After that, lines trace in the
    direction data flows: charts grow from their baseline and diagrams draw from
    step to step the first time they scroll into view (a component marks them
-   with data-reveal), the robot inoculates the root tips of the three test
-   dishes one by one, a sample travels through the platform's pipeline, and the
-   skill tags slide into their cards.
+   with data-reveal), and the skill tags slide into their cards. The recording
+   of the robot inoculating root tips loops while it is in view, with a Pause
+   button (Recording.tsx).
 
    Everything here runs only on screens, and only when the visitor hasn't asked
    for less motion, so printing or reduced motion always shows the finished page.
@@ -429,6 +449,21 @@
     animation: draw-tick 0.45s var(--ease-out-expo) 0.05s backwards;
   }
 
+  /* The prototype-to-production arrow draws itself once the two cards scroll into view. */
+  [data-reveal="waiting"] .draw-arrow {
+    stroke-dashoffset: 1;
+  }
+
+  [data-reveal="shown"] .draw-arrow {
+    transition: stroke-dashoffset 0.9s var(--ease-out-expo) 0.35s;
+  }
+
+  /* The larger view fades in, and so does each picture as you step through. */
+  .lightbox[open],
+  .lightbox-media {
+    animation: fade-in 0.3s ease-out;
+  }
+
   /*
     Charts and diagrams. Each animated part reads its position in the sequence
     from --i (set in the component), so later parts start a little later.
@@ -497,34 +532,6 @@
     transition: scale 0.35s var(--ease-out-expo) calc(var(--i, 0) * 0.14s + 0.1s);
   }
 
-  /*
-    The test dishes: each dish's roots grow down together (--d is the dish),
-    then the robot inoculates the tips one after another (--i is the tip's turn).
-  */
-  .dish-root {
-    transform-origin: top;
-  }
-
-  [data-reveal="waiting"] .dish-root {
-    scale: 1 0;
-  }
-
-  [data-reveal="shown"] .dish-root {
-    transition: scale 0.7s var(--ease-out-expo) calc(var(--d, 0) * 0.12s);
-  }
-
-  [data-reveal="waiting"] .dish-hit {
-    opacity: 0;
-    scale: 0.2;
-  }
-
-  [data-reveal="shown"] .dish-hit {
-    transition:
-      opacity 0.2s ease-out,
-      scale 0.45s var(--ease-out-expo);
-    transition-delay: calc(0.75s + var(--i, 0) * 0.11s);
-  }
-
   /* Skill tags slide into their card one after another: --i is the card, --c the tag. */
   [data-reveal="waiting"] .reveal-chip {
     opacity: 0;
@@ -550,23 +557,15 @@
 }
 
 /*
-  Two effects follow the scroll position itself, in browsers that support it:
-  the reflections drift slowly, as light on glass moves when you move, and the
-  line joining the two NPEC projects grows as you read from one to the other.
-  Other browsers show both standing still.
+  The reflections follow the scroll position itself, in browsers that support
+  it: they drift slowly, as light on glass moves when you move. Other browsers
+  show them standing still.
 */
 @supports (animation-timeline: scroll()) {
   @media screen and (prefers-reduced-motion: no-preference) {
     body::before {
       animation: drift linear both;
       animation-timeline: scroll(root);
-    }
-
-    .story-line {
-      transform-origin: top;
-      animation: grow-down linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 55%;
     }
   }
 }
